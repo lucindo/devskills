@@ -26,6 +26,7 @@ Not installed. devskills ships its own prompt commands; these are the upstream s
 |-----------|--------|---------|
 | Caveman | https://github.com/juliusbrussee/caveman | `/caveman-lite`, `/caveman-ultra` response compression prompts |
 | Tiger Style | https://tigerstyle.dev/ | `/tiger-style` engineering principles — safety, performance, developer experience |
+| mattpocock/skills | https://github.com/mattpocock/skills | `/grill-me`, `/handoff` — adapted from the productivity skills |
 
 ## Included Skills
 
@@ -41,6 +42,8 @@ Not installed. devskills ships its own prompt commands; these are the upstream s
 | Rust Review | `/rust-review` | Rust review: cargo geiger, unsafe counts, clippy, audit |
 | Frontend | `/frontend` | Frontend task mode: components, state, API integration, a11y |
 | Spec | `/spec` | Convert a description into a verifiable structured specification |
+| Grill Me | `/grill-me` | Relentless plan interview — resolve every decision branch |
+| Handoff | `/handoff` | Compact the conversation into a handoff doc for a fresh agent |
 
 ## Language Profiles
 
@@ -61,7 +64,7 @@ devskills/
 ├── PUBLISHING.md             # npm publish, GitHub releases, CI
 ├── package.json              # npm package
 ├── install.sh                # shell installer (--dry-run, --skip-external, --lang, --claude-dir)
-├── claude/commands/          # Claude Code skills (10 .md files)
+├── claude/commands/          # Claude Code skills (12 .md files)
 │   ├── tiger-style.md
 │   ├── caveman-lite.md
 │   ├── caveman-ultra.md
@@ -71,7 +74,9 @@ devskills/
 │   ├── go-review.md
 │   ├── ts-review.md
 │   ├── rust-review.md
-│   └── frontend.md
+│   ├── frontend.md
+│   ├── grill-me.md
+│   └── handoff.md
 ├── opencode/commands/        # OpenCode skills (same files)
 ├── cursor/rules/             # Cursor rules (auto-activate by file glob)
 │   ├── tiger-style.mdc       # alwaysApply: true
