@@ -144,10 +144,15 @@ The installer writes to:
 --lang=<profile>     go | typescript | javascript | rust
 --claude-dir=<path>  Claude config dir (default: $CLAUDE_CONFIG_DIR or ~/.claude)
 --skip-external      skip GSD, RTK, tldt installation
---cursor             install Cursor rules into current project
---vscode             install VSCode Copilot instructions into current project
+--skip-cursor        skip Cursor rules install (install.sh)
+--skip-vscode        skip VSCode Copilot install (install.sh)
+--cursor             install Cursor rules into current project (setup.sh)
+--vscode             install VSCode Copilot instructions into current project (setup.sh)
 --dry-run            show what would happen, write nothing
 ```
+
+Running `install.sh` from inside the devskills source repo auto-skips the
+Cursor and VSCode installs so it does not write contributor files into the repo.
 
 ### Publishing
 

@@ -14,6 +14,8 @@ warn() { printf '[devskills] WARN: %s\n' "$1" >&2; }
 
 LANG_PROFILE=""
 SKIP_EXTERNAL=0
+SKIP_CURSOR=0
+SKIP_VSCODE=0
 DRY_RUN=0
 
 for arg in "$@"; do
@@ -21,11 +23,16 @@ for arg in "$@"; do
     --lang=*) LANG_PROFILE="${arg#--lang=}" ;;
     --claude-dir=*) CLAUDE_CONFIG_DIR="${arg#--claude-dir=}" ;;
     --skip-external) SKIP_EXTERNAL=1 ;;
+    --skip-cursor) SKIP_CURSOR=1 ;;
+    --skip-vscode) SKIP_VSCODE=1 ;;
     --dry-run) DRY_RUN=1 ;;
     --help|-h)
-      echo "Usage: install.sh [--lang=go|typescript|javascript|rust] [--claude-dir=PATH] [--skip-external] [--dry-run]"
+      echo "Usage: install.sh [--lang=go|typescript|javascript|rust] [--claude-dir=PATH] [--skip-external] [--skip-cursor] [--skip-vscode] [--dry-run]"
       echo ""
       echo "  --claude-dir=PATH   Claude config dir (default: \$CLAUDE_CONFIG_DIR or \$HOME/.claude)"
+      echo "  --skip-external     Skip external tool installation (GSD, RTK, tldt)"
+      echo "  --skip-cursor       Skip Cursor rules install into the current project"
+      echo "  --skip-vscode       Skip VSCode Copilot instructions install into the current project"
       exit 0
       ;;
   esac
@@ -37,6 +44,18 @@ case "$CLAUDE_CONFIG_DIR" in
   "~/"*) CLAUDE_CONFIG_DIR="${HOME}/${CLAUDE_CONFIG_DIR#~/}" ;;
 esac
 CLAUDE_COMMANDS_DIR="${CLAUDE_CONFIG_DIR}/commands"
+
+# Auto-skip project-local installers when run from inside the devskills
+# source repo — otherwise they write contributor files into the repo itself.
+case "${PWD}/" in
+  "${DEVSKILLS_DIR}"/*)
+    if [ "$SKIP_CURSOR" -eq 0 ] || [ "$SKIP_VSCODE" -eq 0 ]; then
+      warn "Running inside the devskills source repo; skipping Cursor/VSCode install."
+    fi
+    SKIP_CURSOR=1
+    SKIP_VSCODE=1
+    ;;
+esac
 
 # ------------------------------------------------------------
 # Helpers
@@ -224,8 +243,18 @@ log "source: ${DEVSKILLS_DIR}"
 
 install_claude
 install_opencode
-install_cursor
-install_vscode
+
+if [ "$SKIP_CURSOR" -eq 0 ]; then
+  install_cursor
+else
+  log "Skipping Cursor rules (--skip-cursor)"
+fi
+
+if [ "$SKIP_VSCODE" -eq 0 ]; then
+  install_vscode
+else
+  log "Skipping VSCode Copilot instructions (--skip-vscode)"
+fi
 
 if [ "$SKIP_EXTERNAL" -eq 0 ]; then
   log "Installing external tools..."
