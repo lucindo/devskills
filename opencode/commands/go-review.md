@@ -2,11 +2,22 @@ Review Go code with Tiger Style constraints and Go idioms.
 
 Applies to: Go 1.22+. Backend services, CLIs, APIs.
 
+## Arguments
+
+Scan the invocation for the `--no-tiger` flag. Treat every other argument as review scope (files or directories); if no scope is given, review the changed files on the current branch.
+
+- `--no-tiger` present → skip the Tiger Style section; run Go Idioms, Performance, Security, and Testing only.
+- `--no-tiger` absent → run all sections (default).
+
+Example: `/go-review --no-tiger dir1/ dir2/` reviews `dir1/` and `dir2/` without Tiger Style.
+
 ## Review Checklist
 
 Run through each category. Report only violations — no praise, no summary.
 
-### Tiger Style (mandatory)
+### Tiger Style
+
+Skip this section entirely if `--no-tiger` was passed. Otherwise it is mandatory.
 - [ ] Every function has at least 2 assertions (or equivalent panic/check guards)
 - [ ] All loops have explicit bounds; no unbounded iteration over external input
 - [ ] No recursion without provable termination
