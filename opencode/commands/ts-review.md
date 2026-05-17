@@ -2,11 +2,22 @@ Review TypeScript code with Tiger Style constraints and TypeScript/Workers idiom
 
 Applies to: TypeScript 5+. Cloudflare Workers, Next.js, React, edge runtimes.
 
+## Arguments
+
+Scan the invocation for the `--no-tiger` flag. Treat every other argument as review scope (files or directories); if no scope is given, review the changed files on the current branch.
+
+- `--no-tiger` present → skip the Tiger Style section; run the remaining sections only.
+- `--no-tiger` absent → run all sections (default).
+
+Example: `/ts-review --no-tiger src/ worker/` reviews `src/` and `worker/` without Tiger Style.
+
 ## Review Checklist
 
 Report only violations — no praise, no summary.
 
-### Tiger Style (mandatory)
+### Tiger Style
+
+Skip this section entirely if `--no-tiger` was passed. Otherwise it is mandatory.
 - [ ] No unbounded loops over user-controlled data
 - [ ] All promises awaited or explicitly handled — no floating promises
 - [ ] Error values propagated explicitly — no silent catch-and-ignore
