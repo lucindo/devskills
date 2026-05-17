@@ -5,6 +5,7 @@ tldt performs graph-based extractive summarization. Output consists of verbatim 
 ## Usage
 
 Invoke this skill with one of:
+
 - `/tldt` — summarize the most recent large block of text in context
 - `/tldt <filename>` — summarize a file
 - `/tldt <url>` — fetch and summarize a URL

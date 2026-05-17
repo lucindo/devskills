@@ -34,6 +34,7 @@ err error
 ## What stays full
 
 Regardless of ULTRA mode:
+
 - Security warnings: full sentences, no compression
 - Irreversible action confirmations: enumerate every step completely
 - Code blocks: written normally
