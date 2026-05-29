@@ -12,7 +12,7 @@ Profiles:
   go                Go 1.22+ backend service
   typescript        TypeScript 5+ (Workers, Next.js, React)
   javascript        ES2022+ (Workers, vanilla frontend)
-  rust              Rust stable (systems, experimental)
+  rust              Rust stable (systems programming, large projects)
 
 Options:
   --cursor          Install Cursor rules into current project

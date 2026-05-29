@@ -29,10 +29,12 @@ for arg in "$@"; do
     --help|-h)
       echo "Usage: install.sh [--lang=go|typescript|javascript|rust] [--claude-dir=PATH] [--skip-external] [--skip-cursor] [--skip-vscode] [--dry-run]"
       echo ""
+      echo "  --lang=<profile>    Language profile to write: go|typescript|javascript|rust"
       echo "  --claude-dir=PATH   Claude config dir (default: \$CLAUDE_CONFIG_DIR or \$HOME/.claude)"
       echo "  --skip-external     Skip external tool installation (GSD, RTK, tldt)"
       echo "  --skip-cursor       Skip Cursor rules install into the current project"
       echo "  --skip-vscode       Skip VSCode Copilot instructions install into the current project"
+      echo "  --dry-run           Show what would happen, write nothing"
       exit 0
       ;;
   esac

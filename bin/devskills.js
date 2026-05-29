@@ -31,11 +31,13 @@ Commands:
   setup --lang=<lang>  Configure current project with a language profile
   update               Pull latest and reinstall skills
   list                 List available skills and language profiles
+  version              Print the installed devskills version
 
 Language profiles: go, typescript, javascript, rust
 
 Options (pass through to install/setup):
   --skip-external      Skip external tool installation (GSD, RTK, tldt)
+  --upgrade-deps       Also force-upgrade external tools (update)
   --claude-dir=<path>  Claude config dir (default: $CLAUDE_CONFIG_DIR or ~/.claude)
   --skip-cursor        Skip Cursor rules install (install)
   --skip-vscode        Skip VSCode Copilot install (install)
@@ -48,6 +50,7 @@ Examples:
   npx devskills setup --lang=go --cursor
   npx devskills install --lang=typescript --skip-external
   npx devskills install --claude-dir=~/.config/claude
+  npx devskills update --upgrade-deps
 `)
 }
 
@@ -77,6 +80,11 @@ function list() {
   console.log()
 }
 
+function version() {
+  const pkg = JSON.parse(fs.readFileSync(path.join(DEVSKILLS_DIR, "package.json"), "utf8"))
+  console.log(`devskills ${pkg.version}`)
+}
+
 switch (cmd) {
   case "install":
     run(INSTALL_SCRIPT, rest)
@@ -89,6 +97,11 @@ switch (cmd) {
     break
   case "list":
     list()
+    break
+  case "version":
+  case "--version":
+  case "-v":
+    version()
     break
   case "help":
   case "--help":
