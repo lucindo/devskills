@@ -28,6 +28,7 @@ Interview you relentlessly about a plan or design until you share the same under
 - **Args:** `--record` appends every resolved decision to `DECISIONS.md` (question, answer, one-line rationale).
 - **Output:** a resolved-plan summary once no decision branches remain; the `DECISIONS.md` path if `--record` was used.
 - **Reach for it when:** a plan feels under-specified, or you want to pressure-test a design (including the approach in a draft PR) before committing to it.
+- **More:** `/grill-me` is unusually versatile — see [grill-me.md](grill-me.md) for a full menu of uses (requirements discovery, design/refactor/architecture, domain terminology, non-coding decisions).
 
 ### `/workflow` — action *(uses GSD)*
 

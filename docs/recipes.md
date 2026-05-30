@@ -50,6 +50,8 @@ Stress-test the *approach* of a change before you ask a human to review it. Work
 
 Why this order: the cheapest time to discover the design is wrong is *before* a reviewer spends their attention on it. The draft PR gives the conversation an anchor; `DECISIONS.md` gives the reviewer your reasoning for free.
 
+`/grill-me` does far more than PR review — requirements discovery, design stress-testing, refactor planning, domain/terminology sharpening, even non-coding decisions. See [grill-me.md](grill-me.md) for the full menu.
+
 ---
 
 ## Generate, then clean: `/deslop` before review
