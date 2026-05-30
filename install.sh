@@ -239,36 +239,9 @@ install_lang_profile() {
 
   log "Setting up language profile: ${lang}"
 
-  # Write profile marker for Claude Code CLAUDE.md
-  local claude_md="${PWD}/CLAUDE.md"
-  if [ "$DRY_RUN" -eq 0 ]; then
-    if [ -f "$claude_md" ]; then
-      # Append if not already present
-      if ! grep -q "devskills language profile" "$claude_md" 2>/dev/null; then
-        {
-          echo ""
-          echo "<!-- devskills language profile: ${lang} -->"
-          cat "$profile_file"
-        } >> "$claude_md"
-        log "Appended ${lang} profile to ${claude_md}"
-      else
-        log "Language profile already in ${claude_md}"
-      fi
-    else
-      {
-        echo "<!-- devskills language profile: ${lang} -->"
-        cat "$profile_file"
-      } > "$claude_md"
-      log "Created ${claude_md} with ${lang} profile"
-    fi
-
-    # Write .devskills/language marker
-    mkdir -p "${PWD}/.devskills"
-    echo "${lang}" > "${PWD}/.devskills/language"
-    log "Wrote .devskills/language: ${lang}"
-  else
-    log "DRY: would write ${lang} profile to CLAUDE.md and .devskills/language"
-  fi
+  # shellcheck source=scripts/lib/profile.sh
+  source "${DEVSKILLS_DIR}/scripts/lib/profile.sh"
+  devskills_apply_profile "$lang" "$profile_file" "$PWD" "$DRY_RUN"
 }
 
 # ------------------------------------------------------------

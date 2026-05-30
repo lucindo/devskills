@@ -59,34 +59,18 @@ install() {
   echo "  wrote $dst"
 }
 
-# Language profile into CLAUDE.md
+# Language profile into AGENTS.md (CLAUDE.md imports it via @AGENTS.md)
 PROFILE="${DEVSKILLS_DIR}/prompts/language/${LANG}.md"
 if [ ! -f "$PROFILE" ]; then
   echo "Error: no profile for '${LANG}'. Available: go, typescript, javascript, rust"
   exit 1
 fi
 
-CLAUDE_MD="${PWD}/CLAUDE.md"
-echo "Language profile: ${LANG}"
+# shellcheck source=lib/profile.sh
+source "${DEVSKILLS_DIR}/scripts/lib/profile.sh"
 
-if [ "$DRY_RUN" -eq 0 ]; then
-  if [ -f "$CLAUDE_MD" ] && grep -q "devskills language profile" "$CLAUDE_MD" 2>/dev/null; then
-    echo "  CLAUDE.md already has a devskills profile. Edit manually to change: ${CLAUDE_MD}"
-  else
-    {
-      [ -f "$CLAUDE_MD" ] && echo ""
-      echo "<!-- devskills language profile: ${LANG} -->"
-      cat "$PROFILE"
-    } >> "$CLAUDE_MD"
-    echo "  updated $CLAUDE_MD"
-  fi
-  mkdir -p "${PWD}/.devskills"
-  echo "${LANG}" > "${PWD}/.devskills/language"
-  echo "  wrote .devskills/language"
-else
-  echo "[dry] would append ${LANG} profile to $CLAUDE_MD"
-  echo "[dry] would write .devskills/language"
-fi
+echo "Language profile: ${LANG}"
+devskills_apply_profile "$LANG" "$PROFILE" "$PWD" "$DRY_RUN"
 
 # Cursor rules
 if [ "$DO_CURSOR" -eq 1 ]; then

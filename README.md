@@ -53,7 +53,7 @@ Keep devskills up to date:
 ### setup.sh flags (per-project)
 
 ```
---lang=<profile>     required; writes language profile to CLAUDE.md
+--lang=<profile>     required; writes language profile to AGENTS.md (CLAUDE.md imports it)
 --cursor             install Cursor rules into current project
 --vscode             install VSCode Copilot instructions into current project
 --dry-run            show what would happen, write nothing
@@ -128,7 +128,7 @@ Full walkthrough: [docs/gsd-workflow.md](docs/gsd-workflow.md)
 
 ## Language Profiles
 
-Each profile encodes idioms, toolchain defaults, and review constraints for its stack. `setup.sh --lang=<profile>` appends the profile to `CLAUDE.md` in the current project and writes `.devskills/language`.
+Each profile encodes idioms, toolchain defaults, and review constraints for its stack. `setup.sh --lang=<profile>` writes the profile to `AGENTS.md` (the canonical, cross-tool instructions file) and makes `CLAUDE.md` import it via `@AGENTS.md`, so Claude Code and OpenCode read the same content. The profile lives in a managed block, so re-running with a different `--lang` swaps it cleanly; existing files are backed up before any change. It also writes `.devskills/language`.
 
 | Profile | Stack | Use case |
 |---------|-------|---------|
@@ -141,7 +141,7 @@ Each profile encodes idioms, toolchain defaults, and review constraints for its 
 
 `install.sh` — one-time global install. Copies skills to Claude Code and OpenCode config dirs. Installs external tools. Run from anywhere.
 
-`scripts/setup.sh` — per-project configurator. Writes a language profile to `CLAUDE.md`, optionally installs Cursor rules and VSCode Copilot instructions into the current directory. Run from inside a project.
+`scripts/setup.sh` — per-project configurator. Writes a language profile to `AGENTS.md` and points `CLAUDE.md` at it via `@AGENTS.md`, optionally installs Cursor rules and VSCode Copilot instructions into the current directory. Run from inside a project.
 
 `scripts/update.sh` — pulls the latest devskills repo and reinstalls skills. Use `--upgrade-deps` to also force-upgrade GSD, RTK, and tldt to their latest published versions.
 
