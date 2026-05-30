@@ -33,7 +33,7 @@ Example:
 EOF
 }
 
-LANG=""
+LANG_PROFILE=""
 DO_CURSOR=0
 DO_VSCODE=0
 DO_CONCISE=0
@@ -43,7 +43,7 @@ DRY_RUN=0
 
 for arg in "$@"; do
   case "$arg" in
-    --lang=*) LANG="${arg#--lang=}" ;;
+    --lang=*) LANG_PROFILE="${arg#--lang=}" ;;
     --claude-dir=*|--skip-cursor|--skip-vscode|--skip-external) ;;  # install-only flags; ignored here
     --cursor) DO_CURSOR=1 ;;
     --vscode) DO_VSCODE=1 ;;
@@ -78,21 +78,21 @@ install() {
 }
 
 # Validate the language profile up front (if one was requested).
-if [ -n "$LANG" ] && [ ! -f "${DEVSKILLS_DIR}/prompts/language/${LANG}.md" ]; then
-  echo "Error: no profile for '${LANG}'. Available: go, typescript, javascript, rust"
+if [ -n "$LANG_PROFILE" ] && [ ! -f "${DEVSKILLS_DIR}/prompts/language/${LANG_PROFILE}.md" ]; then
+  echo "Error: no profile for '${LANG_PROFILE}'. Available: go, typescript, javascript, rust"
   exit 1
 fi
 
 # AGENTS.md baseline (+ optional layers); CLAUDE.md imports it via @AGENTS.md.
-echo "devskills baseline${LANG:+ + ${LANG} profile}"
-devskills_apply "${DEVSKILLS_DIR}/prompts" "$PWD" "$DRY_RUN" "$LANG" "$DO_CONCISE" "$DO_HINTS"
+echo "devskills baseline${LANG_PROFILE:+ + ${LANG_PROFILE} profile}"
+devskills_apply "${DEVSKILLS_DIR}/prompts" "$PWD" "$DRY_RUN" "$LANG_PROFILE" "$DO_CONCISE" "$DO_HINTS"
 
 # Cursor rules
 if [ "$DO_CURSOR" -eq 1 ]; then
   echo "Cursor rules:"
   mkdir -p "${PWD}/.cursor/rules"
   install "${DEVSKILLS_DIR}/cursor/rules/tiger-style.mdc" "${PWD}/.cursor/rules/tiger-style.mdc"
-  case "$LANG" in
+  case "$LANG_PROFILE" in
     go)         install "${DEVSKILLS_DIR}/cursor/rules/go.mdc"         "${PWD}/.cursor/rules/go.mdc" ;;
     typescript) install "${DEVSKILLS_DIR}/cursor/rules/typescript.mdc" "${PWD}/.cursor/rules/typescript.mdc" ;;
     javascript) install "${DEVSKILLS_DIR}/cursor/rules/typescript.mdc" "${PWD}/.cursor/rules/typescript.mdc" ;;
@@ -109,5 +109,5 @@ if [ "$DO_VSCODE" -eq 1 ]; then
 fi
 
 echo ""
-echo "Done. AGENTS.md baseline${LANG:+ + ${LANG} profile} written; CLAUDE.md imports it."
+echo "Done. AGENTS.md baseline${LANG_PROFILE:+ + ${LANG_PROFILE} profile} written; CLAUDE.md imports it."
 echo "Activate in Claude Code: /tiger-style"

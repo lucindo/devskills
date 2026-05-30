@@ -69,6 +69,12 @@ case "${PWD}/" in
     ;;
 esac
 
+# AGENTS.md is only written when --lang is given (see install_lang_profile).
+# Flag --concise/--hints used without --lang so they aren't a silent no-op.
+if [ -z "$LANG_PROFILE" ] && { [ "$CONCISE" -eq 1 ] || [ "$HINTS" -eq 1 ]; }; then
+  warn "--concise/--hints apply with --lang; nothing written to AGENTS.md. Use scripts/setup.sh for a baseline-only project."
+fi
+
 # ------------------------------------------------------------
 # Helpers
 # ------------------------------------------------------------

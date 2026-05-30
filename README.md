@@ -142,7 +142,9 @@ Full walkthrough: [docs/gsd-workflow.md](docs/gsd-workflow.md)
 | `concise` | `--concise` | Terse-response directive (caveman-lite behavior, baked in) |
 | `tooling` | `--hints` | Reference list of devskills commands, tldt, and RTK |
 
-Running `setup.sh` with no flags writes just the baseline. Each block lives between `<!-- BEGIN/END devskills:<id> -->` markers, so re-running is idempotent and swapping `--lang` replaces only that block. Existing `AGENTS.md`/`CLAUDE.md` files are backed up (sibling timestamped `.bak`) once, before any change.
+Running `setup.sh` with no flags writes just the baseline. Each block lives between `<!-- BEGIN/END devskills:<id> -->` markers, so re-running is idempotent and swapping `--lang` replaces only that block. Existing `AGENTS.md`/`CLAUDE.md` files are backed up (sibling timestamped `.bak`) once, before any change — these are transient; delete them or keep them out of version control once you've confirmed the result.
+
+The baseline blocks target `AGENTS.md` (Claude Code and OpenCode). Cursor and VSCode Copilot have their own rule mechanisms — `--cursor` installs `.cursor/rules/*.mdc` and `--vscode` writes `copilot-instructions.md`; those paths carry Tiger Style and the language rules but not the `base`/`concise`/`tooling` blocks.
 
 To back out, `setup.sh --uninstall` strips the devskills blocks (and removes a file that held *only* devskills content), leaving your own content untouched — a clean install→uninstall round-trip restores the originals exactly.
 
