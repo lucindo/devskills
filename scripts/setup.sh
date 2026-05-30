@@ -22,12 +22,14 @@ Options:
   --hints           Add a devskills tooling reference to AGENTS.md
   --cursor          Install Cursor rules into current project
   --vscode          Install VSCode Copilot instructions into current project
+  --uninstall       Remove devskills blocks from AGENTS.md/CLAUDE.md and the marker
   --dry-run         Show what would happen without writing files
 
 Example:
   setup.sh                              # baseline only
   setup.sh --lang=go --cursor
   setup.sh --lang=typescript --concise --hints
+  setup.sh --uninstall                  # back out devskills changes
 EOF
 }
 
@@ -36,6 +38,7 @@ DO_CURSOR=0
 DO_VSCODE=0
 DO_CONCISE=0
 DO_HINTS=0
+DO_UNINSTALL=0
 DRY_RUN=0
 
 for arg in "$@"; do
@@ -46,11 +49,22 @@ for arg in "$@"; do
     --vscode) DO_VSCODE=1 ;;
     --concise) DO_CONCISE=1 ;;
     --hints) DO_HINTS=1 ;;
+    --uninstall) DO_UNINSTALL=1 ;;
     --dry-run) DRY_RUN=1 ;;
     --help|-h) usage; exit 0 ;;
     *) echo "Unknown argument: $arg"; usage; exit 1 ;;
   esac
 done
+
+# shellcheck source=lib/profile.sh
+source "${DEVSKILLS_DIR}/scripts/lib/profile.sh"
+
+if [ "$DO_UNINSTALL" -eq 1 ]; then
+  echo "Removing devskills from ${PWD}"
+  devskills_uninstall "$PWD" "$DRY_RUN"
+  echo "Done."
+  exit 0
+fi
 
 install() {
   local src="$1" dst="$2"
@@ -70,9 +84,6 @@ if [ -n "$LANG" ] && [ ! -f "${DEVSKILLS_DIR}/prompts/language/${LANG}.md" ]; th
 fi
 
 # AGENTS.md baseline (+ optional layers); CLAUDE.md imports it via @AGENTS.md.
-# shellcheck source=lib/profile.sh
-source "${DEVSKILLS_DIR}/scripts/lib/profile.sh"
-
 echo "devskills baseline${LANG:+ + ${LANG} profile}"
 devskills_apply "${DEVSKILLS_DIR}/prompts" "$PWD" "$DRY_RUN" "$LANG" "$DO_CONCISE" "$DO_HINTS"
 

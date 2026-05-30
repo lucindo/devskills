@@ -131,6 +131,79 @@ _dsk_ensure_claude_import() {
   rm -f "$imp"
 }
 
+# Remove the listed managed blocks from a file. If nothing but our blocks
+# remains, the file is deleted. Backs up (once) before any change.
+#   $1 file  $2 dry-run  $3 label  $4.. block ids
+_dsk_remove_blocks() {
+  local file="$1" dry="$2" label="$3"; shift 3
+  [ -f "$file" ] || { _dsk_log "${label}: nothing to remove."; return 0; }
+
+  local found=0 id
+  for id in "$@"; do
+    if grep -qF "<!-- BEGIN devskills:${id} -->" "$file"; then found=1; fi
+  done
+  if [ "$found" -eq 0 ]; then _dsk_log "${label}: no devskills blocks; left as-is."; return 0; fi
+
+  local tmp; tmp="$(mktemp)"
+  cp "$file" "$tmp"
+  for id in "$@"; do
+    awk -v b="<!-- BEGIN devskills:${id} -->" -v e="<!-- END devskills:${id} -->" '
+      $0 == b { skip = 1; next }
+      skip && $0 == e { skip = 0; next }
+      skip { next }
+      { print }
+    ' "$tmp" > "${tmp}.2" && mv "${tmp}.2" "$tmp"
+  done
+  # Normalize whitespace: drop leading/trailing blanks, collapse blank runs.
+  awk '
+    /^[[:space:]]*$/ { pending = 1; next }
+    { if (printed && pending) print ""; print; printed = 1; pending = 0 }
+  ' "$tmp" > "${tmp}.2" && mv "${tmp}.2" "$tmp"
+
+  if [ ! -s "$tmp" ]; then
+    if [ "$dry" = "1" ]; then
+      _dsk_log "[dry] would back up ${label} and remove it (only devskills content)."
+    else
+      _dsk_backup_once "$file"; rm -f "$file"
+      _dsk_log "removed ${label} (held only devskills content)."
+    fi
+    rm -f "$tmp"; return 0
+  fi
+
+  if cmp -s "$tmp" "$file"; then _dsk_log "${label}: no change."; rm -f "$tmp"; return 0; fi
+
+  if [ "$dry" = "1" ]; then
+    _dsk_log "[dry] would back up ${label} and strip devskills blocks."
+    rm -f "$tmp"; return 0
+  fi
+  _dsk_backup_once "$file"
+  mv "$tmp" "$file"
+  _dsk_log "stripped devskills blocks from ${label}."
+}
+
+# Remove everything devskills wrote into a project (managed blocks + marker).
+# Preserves all user content; backs up before any change.
+#   $1 target dir  $2 dry-run (1|0)
+devskills_uninstall() {
+  local dir="$1" dry="$2"
+  _dsk_remove_blocks "${dir}/AGENTS.md" "$dry" "AGENTS.md" base concise tooling language
+  _dsk_remove_blocks "${dir}/CLAUDE.md" "$dry" "CLAUDE.md" import
+
+  if [ -f "${dir}/.devskills/language" ]; then
+    if [ "$dry" = "1" ]; then
+      _dsk_log "[dry] would remove .devskills/language"
+    else
+      rm -f "${dir}/.devskills/language"
+      rmdir "${dir}/.devskills" 2>/dev/null || true
+      _dsk_log "removed .devskills/language"
+    fi
+  fi
+
+  if [ -d "${dir}/.cursor/rules" ] || [ -f "${dir}/.github/copilot-instructions.md" ]; then
+    _dsk_warn "Cursor rules / VSCode Copilot instructions (if any) were left in place — remove manually if unwanted."
+  fi
+}
+
 # Apply the devskills baseline (and optional layers) to a project.
 #   $1 prompts dir  $2 target dir  $3 dry-run (1|0)
 #   $4 lang ("" for none)  $5 concise (1|0)  $6 hints (1|0)

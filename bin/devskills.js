@@ -45,6 +45,7 @@ Options (pass through to install/setup):
   --vscode             Install VSCode Copilot instructions (setup)
   --concise            Add a terse-response directive to AGENTS.md (setup/install)
   --hints              Add a devskills tooling reference to AGENTS.md (setup/install)
+  --uninstall          Remove devskills blocks from AGENTS.md/CLAUDE.md (setup)
   --dry-run            Show what would happen without writing files
 
 Examples:
