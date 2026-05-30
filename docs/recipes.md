@@ -177,8 +177,8 @@ Two failure modes on long tasks: the context window fills, and prose burns token
 
 - **Compression** — for long iterative back-and-forth, drop the prose overhead:
   ```
-  /caveman-lite            # ~30% less prose, full explanatory value
-  /caveman-ultra           # ~80% less; fragments + notation, ask for detail when needed
+  /caveman-lite            # ~25–35% less prose, full explanatory value
+  /caveman-ultra           # ~75–85% less; fragments + notation, ask for detail when needed
   ```
   Code, commits, PR bodies, and safety warnings stay written in full regardless.
 
