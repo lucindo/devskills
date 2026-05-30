@@ -28,6 +28,7 @@ assert_unsafe()     { _rtk_archive_has_unsafe_paths "$1" && pass "$2" || fail "$
 assert_safe()       { _rtk_archive_has_unsafe_paths "$1" && fail "$2 (rejected safe list)" || pass "$2"; }
 assert_binary_ok()  { _rtk_staged_binary_ok "$1" && pass "$2" || fail "$2 (rejected good staging)"; }
 assert_binary_bad() { _rtk_staged_binary_ok "$1" && fail "$2 (accepted bad staging)" || pass "$2"; }
+assert_eq()         { [ "$1" = "$2" ] && pass "$3" || fail "$3 (expected '$2', got '$1')"; }
 
 workspace() { mktemp -d "${TMPDIR:-/tmp}/dsk-rtk.XXXXXX"; }
 
@@ -65,10 +66,24 @@ test_staged_binary_check() {
   rm -rf "$ws"
 }
 
+test_expected_sha256_lookup() {
+  echo "test: the expected sha256 is read from a checksums.txt body by exact asset name"
+  # coreutils format: "<hash>  <name>" — mirrors a real rtk checksums.txt.
+  local body
+  body=$'aaa111  rtk-x86_64-unknown-linux-musl.tar.gz\nbbb222  rtk-aarch64-unknown-linux-gnu.tar.gz\nccc333  rtk-x86_64-apple-darwin.tar.gz'
+  assert_eq "$(_rtk_expected_sha256 "$body" "rtk-x86_64-unknown-linux-musl.tar.gz")" "aaa111" "first asset's hash"
+  assert_eq "$(_rtk_expected_sha256 "$body" "rtk-aarch64-unknown-linux-gnu.tar.gz")" "bbb222" "middle asset's hash"
+  assert_eq "$(_rtk_expected_sha256 "$body" "rtk-not-a-real-asset.tar.gz")"          ""       "unlisted asset yields empty (degrades, never false-matches)"
+  assert_eq "$(_rtk_expected_sha256 ""     "rtk-x86_64-unknown-linux-musl.tar.gz")"  ""       "empty checksums body yields empty"
+  # Exactness: a name that is a substring of a listed entry must not match.
+  assert_eq "$(_rtk_expected_sha256 "$body" "linux-musl.tar.gz")"                    ""       "substring of a listed name does not match"
+}
+
 echo "external-tools.sh RTK validation tests"
 echo
 test_unsafe_paths_rejected
 test_staged_binary_check
+test_expected_sha256_lookup
 echo
 echo "passed: ${PASS}, failed: ${FAIL}"
 [ "$FAIL" -eq 0 ]
