@@ -133,6 +133,8 @@ Full walkthrough: [docs/gsd-workflow.md](docs/gsd-workflow.md)
 | Verify This | `/verify-this` | Prove a falsifiable claim with local baseline-vs-treatment evidence; returns VERIFIED / NOT VERIFIED / INCONCLUSIVE (no CI needed) |
 | Write a Skill | `/write-a-skill` | Author a new devskills command in the repo conventions |
 
+Full per-command reference: [docs/commands.md](docs/commands.md). Worked, GSD-free workflows and examples: [docs/recipes.md](docs/recipes.md).
+
 ## Project Setup
 
 `setup.sh` builds your project's `AGENTS.md` from stacked, independently-managed blocks, and points `CLAUDE.md` at it with a single `@AGENTS.md` import — so Claude Code (which reads `CLAUDE.md`) and OpenCode (which reads `AGENTS.md`) share the same content with no duplication.
