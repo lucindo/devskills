@@ -45,7 +45,7 @@ Spec-to-ship orchestration backed by GSD (Get Shit Done). Requires GSD installed
 
 ## Project memory (`.project/`)
 
-A minimal, file-backed alternative to GSD — persistent description, plan, and state in plain markdown under `.project/`, so any session is safe to `/clear` or end. These are *scribes, not pilots*: they record what you decide, never steer architecture. Full walkthrough: [project-workflow.md](project-workflow.md).
+A minimal, file-backed alternative to GSD — persistent description, plan, and state in plain markdown under `.project/`, so any session is safe to `/clear` or end. These are *scribes, not pilots*: they record what you decide, never steer architecture. Walkthrough: [project-workflow.md](project-workflow.md). Worked use cases: [project-recipes.md](project-recipes.md).
 
 ### `/project-map` — action
 

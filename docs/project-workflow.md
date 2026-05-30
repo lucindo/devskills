@@ -4,7 +4,7 @@ A minimal, file-backed alternative to GSD for keeping project memory across sess
 
 The guiding rule: **these commands are scribes, not pilots.** They read the repo and the conversation and persist structure. They never choose your architecture, never impose a methodology, never interrogate you. You drive; they take notes.
 
-For the GSD-managed workflow instead, see [gsd-workflow.md](gsd-workflow.md). For the standalone commands these compose with, see [commands.md](commands.md).
+For the GSD-managed workflow instead, see [gsd-workflow.md](gsd-workflow.md). For the standalone commands these compose with, see [commands.md](commands.md). For worked use cases (new project, bug fix, big refactor, day-to-day PR flow, keeping `.project/` clean), see [project-recipes.md](project-recipes.md).
 
 ---
 
