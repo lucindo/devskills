@@ -87,6 +87,14 @@ _rtk_staged_binary_ok() {
   [ -f "${1}/rtk" ] && [ ! -L "${1}/rtk" ]
 }
 
+# Print the sha256 recorded for <asset> in a checksums.txt body (coreutils
+# format: "<hash>  <name>" per line), or nothing if the asset isn't listed.
+# Pure: stdout only.
+#   $1 checksums body  $2 asset name
+_rtk_expected_sha256() {
+  awk -v a="$2" '$2 == a { print $1; exit }' <<<"$1"
+}
+
 # Download, verify, and safely extract the latest rtk-ai release into
 # ~/.local/bin. Identical for install and upgrade. Honors DRY_RUN.
 #
@@ -107,24 +115,29 @@ _rtk_linux_download() {
   local base_url="https://github.com/rtk-ai/rtk/releases/latest/download"
   local asset="rtk-${target}.tar.gz"
   local tmp; tmp="$(mktemp -d)"
+  trap 'rm -rf "$tmp"' RETURN
 
   if ! curl -fsSL "${base_url}/${asset}" -o "${tmp}/${asset}"; then
     warn "RTK download failed. Install manually: https://github.com/rtk-ai/rtk"
-    rm -rf "$tmp"; return 1
+    return 1
   fi
 
-  # Integrity: a published checksum that's present and wrong is fatal; a missing
-  # one degrades to transport (HTTPS) trust with a warning.
-  if curl -fsSL "${base_url}/${asset}.sha256" -o "${tmp}/${asset}.sha256" 2>/dev/null; then
+  # Integrity: verify against the release's checksums.txt. A listed-but-wrong
+  # checksum is fatal; a missing file or an unlisted asset degrades to transport
+  # (HTTPS) trust with a warning. (Upstream ships one checksums.txt, not a
+  # per-asset .sha256.)
+  if curl -fsSL "${base_url}/checksums.txt" -o "${tmp}/checksums.txt" 2>/dev/null; then
     local want got
-    want="$(awk '{print $1; exit}' "${tmp}/${asset}.sha256")"
+    want="$(_rtk_expected_sha256 "$(cat "${tmp}/checksums.txt")" "$asset")"
     got="$(sha256sum "${tmp}/${asset}" | awk '{print $1}')"
-    if [ -z "$want" ] || [ "$want" != "$got" ]; then
-      warn "RTK checksum mismatch — refusing to install (expected ${want:-<none>}, got ${got})."
-      rm -rf "$tmp"; return 1
+    if [ -z "$want" ]; then
+      warn "RTK: ${asset} not listed in checksums.txt; verifying transport only (HTTPS)."
+    elif [ "$want" != "$got" ]; then
+      warn "RTK checksum mismatch — refusing to install (expected ${want}, got ${got})."
+      return 1
     fi
   else
-    warn "RTK: no published checksum found; verifying transport only (HTTPS)."
+    warn "RTK: no published checksums found; verifying transport only (HTTPS)."
   fi
 
   # Refuse any member that could escape the extract dir before extracting a
@@ -132,11 +145,11 @@ _rtk_linux_download() {
   local members
   if ! members="$(tar -tzf "${tmp}/${asset}")"; then
     warn "RTK: could not read archive. Install manually: https://github.com/rtk-ai/rtk"
-    rm -rf "$tmp"; return 1
+    return 1
   fi
   if _rtk_archive_has_unsafe_paths "$members"; then
     warn "RTK archive contains unsafe paths — refusing to extract. Install manually: https://github.com/rtk-ai/rtk"
-    rm -rf "$tmp"; return 1
+    return 1
   fi
 
   # Extract into an isolated dir, then take only the rtk binary — and only if
@@ -145,18 +158,17 @@ _rtk_linux_download() {
   mkdir -p "$stage"
   if ! tar -xzf "${tmp}/${asset}" -C "$stage" --no-same-owner; then
     warn "RTK extract failed. Install manually: https://github.com/rtk-ai/rtk"
-    rm -rf "$tmp"; return 1
+    return 1
   fi
   if ! _rtk_staged_binary_ok "$stage"; then
     warn "RTK archive did not contain the expected 'rtk' binary. Install manually: https://github.com/rtk-ai/rtk"
-    rm -rf "$tmp"; return 1
+    return 1
   fi
 
   mkdir -p "${HOME}/.local/bin"
   install -m 0755 "${stage}/rtk" "${HOME}/.local/bin/rtk"
   log "RTK installed to ${HOME}/.local/bin/rtk"
   log "Ensure ${HOME}/.local/bin is on your PATH."
-  rm -rf "$tmp"
 }
 
 # Install or upgrade RTK. Avoids `cargo install` deliberately: the
