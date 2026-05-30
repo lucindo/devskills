@@ -151,7 +151,7 @@ These are scribes, not pilots: they record what you decide, never steer architec
 | Zoom Out | `/zoom-out` | Step up a layer — map modules, callers, and boundaries |
 | TDD | `/tdd` | Test-first, one vertical slice at a time; behavior over implementation |
 | Verify This | `/verify-this` | Prove a falsifiable claim with local baseline-vs-treatment evidence; returns VERIFIED / NOT VERIFIED / INCONCLUSIVE (no CI needed) |
-| Write a Skill | `/write-a-skill` | Author a new devskills command in the repo conventions |
+| Write a Command | `/write-a-command` | Author a new devskills command in the repo conventions |
 
 Full per-command reference: [docs/commands.md](docs/commands.md). Worked, GSD-free workflows and examples: [docs/recipes.md](docs/recipes.md). Extended `/grill-me` playbook: [docs/grill-me.md](docs/grill-me.md). Tiger Style principles: [docs/tiger-style.md](docs/tiger-style.md).
 
@@ -211,7 +211,7 @@ devskills ships its own prompt commands based on these upstream sources.
 |-----------|---------|
 | [Tiger Style](https://tigerstyle.dev/) | `/tiger-style`, all review skills |
 | [Caveman](https://github.com/juliusbrussee/caveman) | `/caveman-lite`, `/caveman-ultra` |
-| [mattpocock/skills](https://github.com/mattpocock/skills) | `/grill-me`, `/handoff`, `/zoom-out`, `/tdd`, `/write-a-skill` |
+| [mattpocock/skills](https://github.com/mattpocock/skills) | `/grill-me`, `/handoff`, `/zoom-out`, `/tdd`, `/write-a-command` |
 | [cursor/plugins — cursor-team-kit](https://github.com/cursor/plugins/tree/main/cursor-team-kit/skills) | `/code-quality-review`, `/deslop`, `/verify-this` |
 | [Andrej Karpathy](https://x.com/karpathy/status/2015883857489522876) · [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) | AGENTS.md baseline (`base` block) |
 

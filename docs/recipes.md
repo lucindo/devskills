@@ -172,4 +172,4 @@ Two failure modes on long tasks: the context window fills, and prose burns token
 | Pause / switch sessions cleanly | `/handoff` |
 | Compress a long source doc | `/tldt` |
 | Save tokens on a long session | `/caveman-lite` · `/caveman-ultra` |
-| Turn a repeated manual flow into a command | `/write-a-skill` |
+| Turn a repeated manual flow into a command | `/write-a-command` |

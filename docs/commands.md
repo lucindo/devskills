@@ -186,8 +186,8 @@ Compress the agent's prose to save tokens. **Lite** drops articles/filler/hedgin
 
 ## Meta
 
-### `/write-a-skill` — action
+### `/write-a-command` — action
 
-Author a new devskills command in the repo's conventions, written byte-identical to both `claude/commands/` and `opencode/commands/`, with the README table updated. Enforces the one-job-per-command rule.
+Author a new devskills command in the repo's conventions, written byte-identical to both `claude/commands/` and `opencode/commands/`, registered in the README table and `docs/commands.md`. Knows both archetypes (action vs. mode) and enforces the one-job-per-command rule.
 
 - **Reach for it when:** a workflow you repeat by hand should become a command.
