@@ -144,6 +144,8 @@ These are scribes, not pilots: they record what you decide, never steer architec
 | Go Review | `/go-review` | Go code review: Tiger Style + idiomatic Go + security (`--no-tiger` to skip style) |
 | TS Review | `/ts-review` | TypeScript/Workers review: strict mode, React, Cloudflare (`--no-tiger` to skip style) |
 | Rust Review | `/rust-review` | Rust review: geiger/unsafe counts, clippy, audit, Tiger Style + security (`--no-tiger` to skip style) |
+| Bug Review | `/bug-review` | Language-agnostic correctness audit — hunts real bugs (logic, null, error paths, races, leaks), each with its trigger condition; complements `/code-quality-review`'s maintainability lens |
+| Security Review | `/security-review` | Language-agnostic security audit — injection, broken access control, secrets/crypto, data exposure, untrusted input; each finding names the attack |
 | UI | `/ui` | UI mode (framework-agnostic): component & state discipline, design craft (hierarchy, type scale, escaping the generic AI look), a11y, Core Web Vitals |
 | Explore | `/explore` | Lay out candidate approaches with trade-offs — suggests, never decides; `--web` for bounded research; feeds `/grill-me` |
 | Grill Me | `/grill-me` | Relentless plan interview — resolve every decision branch (`--record` logs to DECISIONS.md) |
@@ -164,7 +166,7 @@ Full per-command reference: [docs/commands.md](docs/commands.md). Worked, GSD-fr
 
 | Block | Flag | Contents |
 |-------|------|----------|
-| `base` | always | Universal engineering principles — think before coding, simplicity first, surgical changes, goal-driven execution |
+| `base` | always | Universal engineering principles — think before coding, simplicity first, surgical changes, goal-driven execution, safe at the boundaries |
 | `language` | `--lang=<x>` | Stack-specific idioms, toolchain, and review constraints |
 | `concise` | `--concise` | Terse-response directive (caveman-lite behavior, baked in) |
 | `tooling` | `--hints` | Reference list of devskills commands, tldt, and RTK |

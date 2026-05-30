@@ -136,6 +136,22 @@ Strip AI-generated slop from the branch and align it with the surrounding code. 
 
 ## Reviews
 
+### `/bug-review` — action
+
+Language-agnostic **correctness** audit — the bug-hunting pass. Asks one thing: *will this misbehave at runtime?* Hunts logic errors, null/absent-value derefs, swallowed errors and half-done failure paths, resource leaks, races (TOCTOU, lock ordering), boundary/overflow mistakes, and contract misuse. Distinct from `/code-quality-review` (which is maintainability, not bugs) — the same split the harness draws between cleanup and correctness.
+
+- **Args:** treated as scope (files, directories, globs); defaults to code changed on the current branch.
+- **Output:** prioritized findings anchored to `file:line` — critical (data loss / reachable crash) first, then likely-wrong, then edge-case. Each names **the exact condition that triggers it** plus the fix and a confidence note. Real defects only; no theoretical nulls. Changes nothing.
+- **Reach for it when:** before merging logic-heavy work, or on any code outside go/ts/rust where there's no language review. Confirmed findings hand off to `/debug` (root-cause) and `/verify-this` (prove the fix).
+
+### `/security-review` — action
+
+Language-agnostic **security** audit — the portable counterpart to the per-language Security sections. Traces untrusted data from entry to dangerous sink: injection (SQL/command/path/SSRF/template), output handling (XSS, unsafe deserialization), broken access control (IDOR, privilege escalation), secrets and weak crypto, sensitive-data exposure, mass assignment / unsafe upload / DoS, and transport/config gaps.
+
+- **Args:** treated as scope (files, directories, globs); defaults to code changed on the current branch.
+- **Output:** prioritized findings anchored to `file:line` — critical (code exec / breach / auth bypass) → high → hardening. Each **describes the attack** (input → sink) and the fix. Exploitable over theoretical. Changes nothing.
+- **Reach for it when:** any change that touches input handling, auth, secrets, or external I/O — and as a pre-PR gate. The deeper language-specific checks live in `/go·ts·rust-review`.
+
 ### `/go-review` · `/ts-review` · `/rust-review` — action
 
 Language-specific review passes.

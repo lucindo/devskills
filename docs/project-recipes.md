@@ -53,6 +53,7 @@ No feature — just paying down entropy. The trick is turning findings *into tas
 ```
 /deslop                                 # strip slop from recent work
 /code-quality-review .                  # full-codebase structural audit (or a path to scope it)
+/bug-review .                           # correctness pass: real bugs (logic, null, error paths, races, leaks)
 /doc-quality-review .                   # docs entropy too: drift vs. code, dead links, bloat (--comments for code comments)
 you → paste the findings into:
 /project-plan                           # findings become ordered tasks in PLAN.md
@@ -77,6 +78,8 @@ Run it on a cadence (end of a sprint, before a release). Branch-scope `/code-qua
 you → "implement task 4: the retry policy with capped backoff"
 /deslop
 /code-quality-review        # branch-scoped, before review
+/bug-review                 # correctness pass on the branch — real bugs, not style
+/security-review            # if it touches input, auth, secrets, or external I/O
 /doc-quality-review         # if the feature touched README/docs — did they keep up?
 /verify-this "requests retry 3× with backoff, then surface the error"
 /project-checkpoint

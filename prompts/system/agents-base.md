@@ -56,6 +56,13 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
+## 5. Safe at the Boundaries
+
+**Distrust the edges. Fail loudly, not silently.**
+
+- Validate untrusted input where it enters — args, request payloads, external API responses. Don't trust it deep inside.
+- Handle the errors that can actually happen; propagate or surface the rest. Never swallow an error to make a path look clean.
+
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
