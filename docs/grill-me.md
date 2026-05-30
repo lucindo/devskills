@@ -2,7 +2,7 @@
 
 `/grill-me` is the most versatile command in the set, so it gets its own page. The base command is tiny — *interview me about this plan, one decision at a time, until we share the same understanding* — but what you point it at changes everything. This doc is a menu of those uses.
 
-For the command's args and behavior see [commands.md](commands.md). For the canonical pre-PR loop see [recipes.md](recipes.md#the-draft-pr-grill-loop).
+For the command's args and behavior see [commands.md](commands.md). For the canonical pre-PR loop see [recipes.md](recipes.md#the-draft-pr-grill-loop). To *generate* the options before grilling, reach for `/explore` first — it surfaces the candidate approaches and open questions that `/grill-me` then walks you through.
 
 ## Why it works
 

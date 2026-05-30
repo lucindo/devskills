@@ -144,6 +144,7 @@ These are scribes, not pilots: they record what you decide, never steer architec
 | TS Review | `/ts-review` | TypeScript/Workers review: strict mode, React, Cloudflare (`--no-tiger` to skip style) |
 | Rust Review | `/rust-review` | Rust review: cargo geiger, unsafe counts, clippy, audit |
 | Frontend | `/frontend` | Frontend task mode: components, state, API integration, a11y |
+| Explore | `/explore` | Lay out candidate approaches with trade-offs — suggests, never decides; `--web` for bounded research; feeds `/grill-me` |
 | Grill Me | `/grill-me` | Relentless plan interview — resolve every decision branch (`--record` logs to DECISIONS.md) |
 | Handoff | `/handoff` | Compact the conversation into a handoff doc for a fresh agent |
 | Zoom Out | `/zoom-out` | Step up a layer — map modules, callers, and boundaries |

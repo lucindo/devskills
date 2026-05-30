@@ -53,7 +53,8 @@ Run at session start. Reads `PLAN.md` (and `PROJECT.md` for the map), then summa
 
 # starting a piece of work
 /spec                         # optional: WHAT → .project/SPEC.md
-/grill-me --record            # optional: resolve gray areas → .project/DECISIONS.md
+/explore                      # optional: lay out approaches → .project/EXPLORE.md (--web to research)
+/grill-me --record            # optional: decide gray areas → .project/DECISIONS.md
 /project-plan                 # ordered tasks → .project/PLAN.md
 
    ...you write code, driving the design...

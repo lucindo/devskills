@@ -21,6 +21,13 @@ Turn a rough description into a structured specification (the WHAT, not the HOW)
 - **Output:** `SPEC.md` in the current directory (or `.planning/SPEC.md` if that exists), shown inline. Sections: Problem, Scope, Users, Functional/Non-Functional Requirements, Interfaces, Constraints, Acceptance Criteria, Open Questions.
 - **Reach for it when:** you have an idea and want a verifiable contract before any code.
 
+### `/explore` — action
+
+Surface candidate approaches to a problem with their trade-offs — suggests, never decides, never implements. Reads `.project/` state and decisions (and the code) so options respect reality; can do bounded, cited web research with `--web` (off by default — and if local context is too thin for good options, it says so and suggests `--web` rather than guessing). Writes a scratch `.project/EXPLORE.md` (or a temp path) and lists the open questions the choice hinges on.
+
+- **Args:** a problem/question; `--web` to opt into web research.
+- **Reach for it when:** facing a "how should I build this?" fork and you want options laid out before deciding. It's the upstream of `/grill-me`: explore generates the options, `/grill-me` walks you through choosing.
+
 ### `/grill-me` — action
 
 Interview you relentlessly about a plan or design until you share the same understanding. One question at a time, each with a recommended answer; explores the codebase instead of asking when it can.

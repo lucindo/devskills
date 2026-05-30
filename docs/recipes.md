@@ -114,11 +114,12 @@ Then write the PR description from what you learned and `gh pr ready`. Each step
 For small-to-medium work you don't need the full `.planning/` machinery. This loop covers the same ground — spec, plan, build, verify, ship — using only standalone commands:
 
 ```
-/spec                    # 1. WHAT: a SPEC.md with acceptance criteria
-/grill-me --record       # 2. resolve the design's open branches → DECISIONS.md
-/zoom-out                # 3. (in unfamiliar code) map the area before changing it
-/tiger-style             # 4. turn on the engineering bar for the session
-/tdd                     # 5. build it test-first, one vertical slice at a time
+/spec                    # 1. WHAT: a SPEC.md with acceptance criteria (optional)
+/explore                 # 2. at a fork: lay out approaches → EXPLORE.md (--web to research)
+/grill-me --record       # 3. decide the open branches → DECISIONS.md
+/zoom-out                # 4. in unfamiliar code: map the area before changing it
+/tiger-style             # 5. turn on the engineering bar for the session
+   ...build it, driving the design yourself...
 /deslop                  # 6. clean the generated code
 /code-quality-review     # 7. audit structure before review
 /verify-this <claim>     # 8. prove the acceptance criteria hold
