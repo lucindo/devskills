@@ -9,21 +9,11 @@
 # so they live here once instead of being copy-pasted into both scripts.
 #
 # Logging: install.sh and upgrade-deps.sh each define log()/warn() with their
-# own prefix and this lib uses theirs (resolved at call time). If sourced
-# without them, it falls back to a default prefix rather than failing on an
-# undefined function. DRY_RUN (0|1) is honored; defaults to 0.
+# own prefix and this lib uses theirs (resolved at call time). DRY_RUN (0|1) is
+# honored; defaults to 0.
 
 [ -n "${DEVSKILLS_EXTERNAL_LIB:-}" ] && return 0
 DEVSKILLS_EXTERNAL_LIB=1
-
-# Fall back to a default logger when the caller hasn't defined one, so the lib
-# never depends on a function existing in the sourcing scope.
-if ! declare -F log >/dev/null 2>&1; then
-  log() { printf '[devskills] %s\n' "$1"; }
-fi
-if ! declare -F warn >/dev/null 2>&1; then
-  warn() { printf '[devskills] WARN: %s\n' "$1" >&2; }
-fi
 
 # Run a command, or just describe it under --dry-run.
 #   $1 human-readable description  $2.. command + args
