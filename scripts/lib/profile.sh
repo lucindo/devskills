@@ -240,5 +240,4 @@ devskills_apply() {
     _dsk_warn "CLAUDE.md has a legacy inline devskills profile."
     _dsk_warn "Content now lives in AGENTS.md — remove the old inline block from CLAUDE.md."
   fi
-
 }
