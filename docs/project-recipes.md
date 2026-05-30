@@ -1,6 +1,6 @@
 # Project Workflow — Recipes
 
-Use-case walkthroughs for the `.project/` workflow. For the commands and file layout, see [project-workflow.md](project-workflow.md); for the full command reference, see [commands.md](commands.md); for non-`.project/` workflows, see [recipes.md](recipes.md).
+Use-case walkthroughs for working with devskills — the `.project/` workflow plus the modes, reviews, and checks that bookend it. For the commands and file layout, see [project-workflow.md](project-workflow.md); for the full command reference, see [commands.md](commands.md); for non-`.project/` workflows, see [recipes.md](recipes.md).
 
 > **There is no execute command — and that's deliberate.** In the sequences below, a `you →` line is *you typing a normal instruction to the agent*. Implementing is its default behavior; you don't invoke a command to make it write code. The slash-commands bookend the work — decide, structure, check, persist — and the building in the middle is plain conversation.
 >
@@ -10,6 +10,21 @@ Use-case walkthroughs for the `.project/` workflow. For the commands and file la
 > ```
 
 ---
+
+## Modes stay on — and they stack
+
+A **mode** (`/tiger-style`, `/ui`, `/test`, `/caveman-lite` / `/caveman-ultra`) doesn't run and return — it changes *how* the agent works for the rest of the session. Modes **stack**: turn on as many as fit the work. Building a tested UI to a strict bar is three at once —
+
+```
+/tiger-style                # safety + explicitness bar
+/ui                         # component/state discipline + design craft
+/test                       # keep the core honestly tested as you build
+you → "implement the settings panel"
+```
+
+All three stay active through every `you →` instruction that follows. They persist until the session ends or you drop one ("stop UI mode"); `/caveman-lite` and `/caveman-ultra` are the ones with explicit off-switches ("normal mode"). Layer caveman on top of any build mode when prose is just overhead.
+
+Everything else — `/spec`, `/bug-review`, `/verify-this`, the `/project-*` family — is an **action**: runs once, returns a result. The recipes below bookend mode-driven building (the `you →` lines) with actions that decide, check, and persist.
 
 ## Project from scratch
 
@@ -54,6 +69,7 @@ No feature — just paying down entropy. The trick is turning findings *into tas
 /deslop                                 # strip slop from recent work
 /code-quality-review .                  # full-codebase structural audit (or a path to scope it)
 /bug-review .                           # correctness pass: real bugs (logic, null, error paths, races, leaks)
+/test-quality-review .                  # is the critical code actually tested — and are those tests any good?
 /doc-quality-review .                   # docs entropy too: drift vs. code, dead links, bloat (--comments for code comments)
 you → paste the findings into:
 /project-plan                           # findings become ordered tasks in PLAN.md
@@ -74,12 +90,14 @@ Run it on a cadence (end of a sprint, before a release). Branch-scope `/code-qua
 /grill-me --record          # decide → DECISIONS.md
 /project-plan               # add the feature's tasks to the roadmap
 /zoom-out                   # if it touches unfamiliar code
-/tiger-style
+/tiger-style                # engineering bar on
+/test                       # + keep the core tested as you build (modes stack)
 you → "implement task 4: the retry policy with capped backoff"
 /deslop
 /code-quality-review        # branch-scoped, before review
 /bug-review                 # correctness pass on the branch — real bugs, not style
 /security-review            # if it touches input, auth, secrets, or external I/O
+/test-quality-review        # did the risky logic get good tests, or just happy-path ones?
 /doc-quality-review         # if the feature touched README/docs — did they keep up?
 /verify-this "requests retry 3× with backoff, then surface the error"
 /project-checkpoint
@@ -108,6 +126,24 @@ Root-cause it, fix it, prove it — `/debug` runs that loop and hands the proven
 /verify-this "mytool parse empty.json exits 0 with an error message, no panic"  # /debug hands off here to prove it
 /project-checkpoint         # if it was more than a trivial fix
 ```
+
+## Shoring up a risky area
+
+Inherited or critical code you don't trust — get it covered *before* you change it, so a later refactor has a net under it.
+
+```
+/zoom-out                   # understand the area: responsibility, callers, boundaries
+/test-quality-review src/billing/   # where's the critical logic untested, and which tests lie?
+/bug-review src/billing/    # while you're in here: any latent defects in that code?
+you → paste the gaps into:
+/project-plan               # the coverage gaps and bugs become ordered tasks
+/test                       # pragmatic testing mode on — cover by risk, not for a number
+you → "cover the proration edge cases the review flagged"
+/verify-this "a mid-cycle plan change prorates to the day, not the month"
+/project-checkpoint
+```
+
+Tests first, *then* the change. `/test-quality-review` finds what's unprotected; `/test` keeps you honest writing it; `/bug-review` catches what was already broken.
 
 ## Day-to-day: branch → draft PR → ship
 
