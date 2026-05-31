@@ -113,9 +113,21 @@ install_file() {
 # without this the old name lingers next to its replacement forever (e.g. after
 # update.sh). Remove the known stale files from a target commands dir; only
 # touches names devskills itself shipped, never user-authored commands.
-#   frontend.md     -> ui.md
-#   write-a-skill.md -> write-a-command.md
-RENAMED_COMMANDS=(frontend.md write-a-skill.md)
+#   frontend.md     -> ui.md (now ds-ui-mode.md)
+#   write-a-skill.md -> write-a-command.md (now ds-write-a-command.md)
+# Every command was namespaced with a `ds-` prefix (modes also gain a `-mode`
+# suffix); the pre-prefix filenames below are retired here. New names all carry
+# the `ds-` prefix, so none collide with the stale names being removed.
+RENAMED_COMMANDS=(
+  frontend.md write-a-skill.md
+  bug-review.md caveman-lite.md caveman-ultra.md code-quality-review.md
+  debug.md deslop.md doc-quality-review.md explore.md go-review.md grill-me.md
+  handoff.md project-checkpoint.md project-map.md project-plan.md
+  project-resume.md python-review.md quality-gate.md rust-review.md
+  security-review.md spec.md tdd.md test-quality-review.md test.md
+  tiger-style.md tldt.md ts-review.md ui-quality-review.md ui.md
+  verify-this.md workflow.md write-a-command.md zoom-out.md
+)
 
 purge_renamed_commands() {
   local dir="$1" name
@@ -240,10 +252,10 @@ fi
 
 log ""
 log "Done. Verify with:"
-log "  claude /tiger-style    — in Claude Code"
-log "  /tiger-style           — in Cursor or OpenCode"
-log "  rtk --version          — RTK token proxy"
-log "  tldt --version         — text summarizer"
+log "  claude /ds-tiger-style-mode   — in Claude Code"
+log "  /ds-tiger-style-mode          — in Cursor or OpenCode"
+log "  rtk --version                 — RTK token proxy"
+log "  tldt --version                — text summarizer"
 log ""
 log "Set language profile in any project:"
 log "  ./install.sh --lang=go"

@@ -5,7 +5,7 @@ Install: `npx @opengsd/get-shit-done-redux@latest`
 
 GSD is a meta-prompting framework for AI coding tools. It manages context rot (the quality degradation that happens as your session fills up) by persisting state in a `.planning/` directory and delegating heavy work to sub-agents with fresh context windows.
 
-This document covers how to move from a `/spec` output into a GSD-managed project with full phase tracking.
+This document covers how to move from a `/ds-spec` output into a GSD-managed project with full phase tracking.
 
 ---
 
@@ -27,10 +27,10 @@ GSD supports 15+ AI coding runtimes. For non-Claude tools, see the GSD README fo
 
 ### Step 1: Write the spec
 
-Use devskills `/spec` skill to produce a structured `SPEC.md`:
+Use devskills `/ds-spec` skill to produce a structured `SPEC.md`:
 
 ```
-/spec
+/ds-spec
 ```
 
 This prompts you for the problem, constraints, and acceptance criteria, then writes `SPEC.md`.
@@ -158,14 +158,14 @@ Commit `.planning/` to git. It is the canonical record of decisions and progress
 
 | Scenario | Command sequence |
 |----------|-----------------|
-| New project | `/spec` → `/gsd-new-project` → `/gsd-discuss-phase` → `/gsd-plan-phase` → `/gsd-execute-phase` |
-| Resume work | `/gsd-resume-work` → `/workflow status` |
-| Review after execute | `/go-review` or `/rust-review` → `/gsd-verify-work` |
-| Compress long docs | `/tldt` before feeding to GSD discuss |
-| Reduce response noise | `/caveman-lite` or `/caveman-ultra` during iterative execution |
-| Style enforcement | `/tiger-style` at session start |
+| New project | `/ds-spec` → `/gsd-new-project` → `/gsd-discuss-phase` → `/gsd-plan-phase` → `/gsd-execute-phase` |
+| Resume work | `/gsd-resume-work` → `/ds-workflow status` |
+| Review after execute | `/ds-go-review` or `/ds-rust-review` → `/gsd-verify-work` |
+| Compress long docs | `/ds-tldt` before feeding to GSD discuss |
+| Reduce response noise | `/ds-caveman-lite-mode` or `/ds-caveman-ultra-mode` during iterative execution |
+| Style enforcement | `/ds-tiger-style-mode` at session start |
 | Token savings on CLI ops | `rtk` wraps git/build/test commands automatically (60–90% reduction) |
-| Language conventions | set a profile via `setup.sh --lang=<lang>`; `/spec` adds a Technical Profile section, execution applies the idioms, and the matching review skill (`/go-review`, `/ts-review`, `/rust-review`) runs at verify |
+| Language conventions | set a profile via `setup.sh --lang=<lang>`; `/ds-spec` adds a Technical Profile section, execution applies the idioms, and the matching review skill (`/ds-go-review`, `/ds-ts-review`, `/ds-rust-review`) runs at verify |
 
 ---
 
@@ -173,8 +173,8 @@ Commit `.planning/` to git. It is the canonical record of decisions and progress
 
 GSD keeps context lean. For best results:
 
-- Use `/tldt` to summarize long files before pasting them into context
-- Use `/caveman-lite` during planning and discuss phases
+- Use `/ds-tldt` to summarize long files before pasting them into context
+- Use `/ds-caveman-lite-mode` during planning and discuss phases
 - Let GSD sub-agents handle heavy research — do not do the research in the main session
 - Run `/gsd-execute-phase` for implementation — do not implement inline in the planning session
 

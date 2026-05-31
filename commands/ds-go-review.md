@@ -9,7 +9,7 @@ Scan the invocation for the `--no-tiger` flag. Treat every other argument as rev
 - `--no-tiger` present → skip the Tiger Style section; run Go Idioms, Performance, Security, and Testing only.
 - `--no-tiger` absent → run all sections (default).
 
-Example: `/go-review --no-tiger dir1/ dir2/` reviews `dir1/` and `dir2/` without Tiger Style.
+Example: `/ds-go-review --no-tiger dir1/ dir2/` reviews `dir1/` and `dir2/` without Tiger Style.
 
 ## Review Checklist
 

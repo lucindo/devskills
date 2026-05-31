@@ -1,8 +1,8 @@
 Find the root cause of a failure with the scientific method — reproduce, isolate, fix, then prove it.
 
-When invoked, debug a specific failure by investigation, not guesswork. The goal is the *cause*, not a symptom that happens to go quiet. Change one thing at a time and let evidence — not intuition — drive each step. End by proving the fix with `/verify-this`.
+When invoked, debug a specific failure by investigation, not guesswork. The goal is the *cause*, not a symptom that happens to go quiet. Change one thing at a time and let evidence — not intuition — drive each step. End by proving the fix with `/ds-verify-this`.
 
-This is the lightweight, stateless counterpart to confirmation: `/debug` finds and fixes; `/verify-this` proves the fix held.
+This is the lightweight, stateless counterpart to confirmation: `/ds-debug` finds and fixes; `/ds-verify-this` proves the fix held.
 
 ## Arguments
 
@@ -15,8 +15,8 @@ Treat the argument as the failure to chase: a failing test, an error message, a 
 3. **Form hypotheses, ranked** by likelihood × cheapness to test. Write them down.
 4. **Test one hypothesis at a time** with the cheapest probe that can *disprove* it — a log line, a breakpoint, a bisect, a narrowed input. Instrument to learn; don't change code "to see if it helps".
 5. **Narrow to the root cause** — the specific line or condition that produces the failure, *and why*. State it explicitly. "The error stopped" is not a root cause.
-6. **Apply the minimal fix** that addresses the cause. Surgical only — no drive-by refactors or unrelated cleanup (see `/deslop`).
-7. **Prove it.** Re-run the repro: the failure is gone. Then hand to `/verify-this "<the repro now passes / behavior X now holds>"` for a baseline-vs-treatment record.
+6. **Apply the minimal fix** that addresses the cause. Surgical only — no drive-by refactors or unrelated cleanup (see `/ds-deslop`).
+7. **Prove it.** Re-run the repro: the failure is gone. Then hand to `/ds-verify-this "<the repro now passes / behavior X now holds>"` for a baseline-vs-treatment record.
 
 ## Discipline
 
@@ -32,5 +32,5 @@ Treat the argument as the failure to chase: a failing test, an error message, a 
 
 - **Root cause** — stated plainly, anchored to `file:line`, with *why* it fails.
 - **Fix** — what changed and how it addresses the cause, not the symptom.
-- **Evidence** — the before/after, and the `/verify-this` claim that locks it in.
+- **Evidence** — the before/after, and the `/ds-verify-this` claim that locks it in.
 - **If unresolved** — the ranked hypotheses tested, what each ruled out, and the next probe to run.

@@ -3,14 +3,14 @@
 This project was configured with devskills. Reference for the available helpers:
 
 **Slash commands** (invoked in Claude Code / OpenCode):
-- Modes: `/tiger-style`, `/ui` — engineering / UI discipline for the session
-- Reviews: `/code-quality-review`, `/bug-review`, `/security-review`, `/test-quality-review`, `/doc-quality-review`, `/go-review`, `/ts-review`, `/rust-review`
-- Build & verify: `/spec`, `/tdd`, `/test`, `/debug`, `/verify-this`, `/deslop`
-- Plan & context: `/explore`, `/grill-me`, `/project-map`, `/project-plan`, `/project-checkpoint`, `/project-resume`, `/zoom-out`, `/handoff`, `/workflow`
+- Modes: `/ds-tiger-style-mode`, `/ds-ui-mode` — engineering / UI discipline for the session
+- Reviews: `/ds-code-quality-review`, `/ds-bug-review`, `/ds-security-review`, `/ds-test-quality-review`, `/ds-doc-quality-review`, `/ds-go-review`, `/ds-ts-review`, `/ds-rust-review`
+- Build & verify: `/ds-spec`, `/ds-tdd`, `/ds-test-mode`, `/ds-debug`, `/ds-verify-this`, `/ds-deslop`
+- Plan & context: `/ds-explore`, `/ds-grill-me`, `/ds-project-map`, `/ds-project-plan`, `/ds-project-checkpoint`, `/ds-project-resume`, `/ds-zoom-out`, `/ds-handoff`, `/ds-workflow`
 
 **Token-saving tools:**
-- `/caveman-lite` (~25–35%) or `/caveman-ultra` (~75–85%) — compress responses
-- `/tldt [file|url]` — extractive summarization, no LLM cost; compress long docs before adding to context (uses the `tldt` CLI when installed)
+- `/ds-caveman-lite-mode` (~25–35%) or `/ds-caveman-ultra-mode` (~75–85%) — compress responses
+- `/ds-tldt [file|url]` — extractive summarization, no LLM cost; compress long docs before adding to context (uses the `tldt` CLI when installed)
 - `rtk` — transparent CLI proxy that cuts token use 60–90% on dev commands
 
 Run `devskills list` to see everything available.

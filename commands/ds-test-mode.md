@@ -1,6 +1,6 @@
 Activate pragmatic testing mode for this session.
 
-When active, make sure the things that matter get well tested as you build — without test-first ceremony. This is the pragmatic sibling of `/tdd`: `/tdd` drives the design by writing the test first; this rides alongside normal work and ensures the risk is covered before you call something done. To audit tests that already exist, use `/test-quality-review`.
+When active, make sure the things that matter get well tested as you build — without test-first ceremony. This is the pragmatic sibling of `/ds-tdd`: `/ds-tdd` drives the design by writing the test first; this rides alongside normal work and ensures the risk is covered before you call something done. To audit tests that already exist, use `/ds-test-quality-review`.
 
 ## What earns a test
 

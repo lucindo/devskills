@@ -9,7 +9,7 @@ Scan the invocation for the `--no-tiger` flag. Treat every other argument as rev
 - `--no-tiger` present → skip the Tiger Style section; run the remaining sections only.
 - `--no-tiger` absent → run all sections (default).
 
-Example: `/ts-review --no-tiger src/ worker/` reviews `src/` and `worker/` without Tiger Style.
+Example: `/ds-ts-review --no-tiger src/ worker/` reviews `src/` and `worker/` without Tiger Style.
 
 ## Review Checklist
 

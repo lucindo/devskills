@@ -2,7 +2,7 @@ Run a strict review of documentation quality — accuracy against the code, brok
 
 When invoked, audit the documentation in scope against one governing principle: **documentation earns its length.** Readers skim; they don't read. Every sentence that doesn't help someone do something is noise that hides the sentences that do. So hunt two failures with equal energy — docs that are *wrong* (drifted from the code) and docs that are *bloated* (true, but nobody will read them). Be ambitious about cutting: the best fix is often to delete three paragraphs, not to polish them.
 
-Like `/code-quality-review`, this produces a prioritized list of what needs fixing. **Do not edit any files.**
+Like `/ds-code-quality-review`, this produces a prioritized list of what needs fixing. **Do not edit any files.**
 
 ## Arguments
 

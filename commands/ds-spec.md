@@ -1,6 +1,6 @@
 Convert a description into a structured specification.
 
-When invoked, gather information and produce a spec document that defines WHAT the system does, not HOW it is implemented. The spec becomes the input to `/workflow` planning phases.
+When invoked, gather information and produce a spec document that defines WHAT the system does, not HOW it is implemented. The spec becomes the input to `/ds-workflow` planning phases.
 
 ## Process
 
@@ -79,4 +79,4 @@ If a language profile is active, add a "Technical Profile" section:
 
 Write the spec to `.project/SPEC.md` if `.project/` exists, else `.planning/SPEC.md` if `.planning/` exists, else `SPEC.md` in the current directory; then display it inline for review.
 
-Ask: "Should I proceed to planning with `/workflow`?" after displaying the spec.
+Ask: "Should I proceed to planning with `/ds-workflow`?" after displaying the spec.

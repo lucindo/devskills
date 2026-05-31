@@ -7,7 +7,7 @@ When invoked, sequence work into `.project/PLAN.md` under `## Roadmap`. You orde
 Use whatever the user provides as the source of tasks:
 - a goal or feature description,
 - a `.project/SPEC.md` (or `SPEC.md`),
-- pasted output from another command (e.g. `/code-quality-review` findings, a list of bugs).
+- pasted output from another command (e.g. `/ds-code-quality-review` findings, a list of bugs).
 
 If nothing is provided, ask once for the goal, then proceed.
 
@@ -17,7 +17,7 @@ If nothing is provided, ask once for the goal, then proceed.
 2. Break the input into the smallest ordered, independently-shippable tasks.
 3. Write them under `## Roadmap` as a status checklist, appending to existing tasks rather than discarding them:
    - `[ ]` todo · `[~]` in progress · `[x]` done
-4. Preserve the `## Now` section if present — that section belongs to `/project-checkpoint`, not here.
+4. Preserve the `## Now` section if present — that section belongs to `/ds-project-checkpoint`, not here.
 
 ## Rules
 

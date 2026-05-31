@@ -6,7 +6,7 @@ This command works GSD-free by default. If `.planning/` exists, it surfaces GSD 
 
 1. Check for `.planning/ROADMAP.md` (GSD), `.project/PLAN.md` (lightweight), or nothing (fresh start).
 2. Report current state: what exists, what phase you appear to be in, what's next.
-3. Activate `/tiger-style` implicitly — engineering bar on for the session.
+3. Activate `/ds-tiger-style-mode` implicitly — engineering bar on for the session.
 4. If a language profile is set in `AGENTS.md` (look for `<!-- profile: <lang> -->`), apply its conventions.
 
 ## Phase map
@@ -17,8 +17,8 @@ Each phase has a primary command and the question it answers. Emit an Insight bl
 *"Where am I? What does this code do?"*
 ```
 `Insight ─────────────────────────────────────`
-/zoom-out — map the area before changing it
-/project-resume — pick up from .project/PLAN.md if it exists
+/ds-zoom-out — map the area before changing it
+/ds-project-resume — pick up from .project/PLAN.md if it exists
 `─────────────────────────────────────────────`
 ```
 
@@ -26,9 +26,9 @@ Each phase has a primary command and the question it answers. Emit an Insight bl
 *"What exactly are we building?"*
 ```
 `Insight ─────────────────────────────────────`
-/spec — lock the WHAT + acceptance criteria → SPEC.md
-/explore — lay out approaches at a fork (--web to research)
-/grill-me --record — decide open branches → DECISIONS.md
+/ds-spec — lock the WHAT + acceptance criteria → SPEC.md
+/ds-explore — lay out approaches at a fork (--web to research)
+/ds-grill-me --record — decide open branches → DECISIONS.md
 `─────────────────────────────────────────────`
 ```
 
@@ -37,7 +37,7 @@ Each phase has a primary command and the question it answers. Emit an Insight bl
 
 Without GSD:
 ```
-/project-plan    # turn spec/decisions into ordered tasks → .project/PLAN.md
+/ds-project-plan    # turn spec/decisions into ordered tasks → .project/PLAN.md
 ```
 
 With GSD (`.planning/` present):
@@ -50,19 +50,19 @@ With GSD (`.planning/` present):
 *"Build it."*
 ```
 `Insight ─────────────────────────────────────`
-/tiger-style — safety + explicitness bar (already active)
-/tdd — drive implementation with tests
-/test — keep the core tested as you build (mode, stays on)
-/ui — component/state discipline + design craft (UI work)
+/ds-tiger-style-mode — safety + explicitness bar (already active)
+/ds-tdd — drive implementation with tests
+/ds-test-mode — keep the core tested as you build (mode, stays on)
+/ds-ui-mode — component/state discipline + design craft (UI work)
 `─────────────────────────────────────────────`
 ```
-Modes compose: `/tiger-style /test /ui` can all be active at once.
+Modes compose: `/ds-tiger-style-mode /ds-test-mode /ds-ui-mode` can all be active at once.
 
 ### Clean
 *"Strip the AI slop before anyone looks at it."*
 ```
 `Insight ─────────────────────────────────────`
-/deslop — remove narrating comments, defensive overkill, type escape hatches
+/ds-deslop — remove narrating comments, defensive overkill, type escape hatches
 Run this before any review pass.
 `─────────────────────────────────────────────`
 ```
@@ -71,11 +71,11 @@ Run this before any review pass.
 *"Is it correct, safe, and idiomatic?"*
 ```
 `Insight ─────────────────────────────────────`
-/code-quality-review — structure: is the diff making the codebase worse?
-/bug-review — correctness: real bugs, not style
-/security-review — if it touches input, auth, secrets, or I/O
-/test-quality-review — is the risky logic actually covered?
-/go-review · /ts-review · /rust-review — language idioms + security
+/ds-code-quality-review — structure: is the diff making the codebase worse?
+/ds-bug-review — correctness: real bugs, not style
+/ds-security-review — if it touches input, auth, secrets, or I/O
+/ds-test-quality-review — is the risky logic actually covered?
+/ds-go-review · /ds-ts-review · /ds-rust-review — language idioms + security
 `─────────────────────────────────────────────`
 ```
 
@@ -83,7 +83,7 @@ Run this before any review pass.
 *"Does it actually do what I claimed?"*
 ```
 `Insight ─────────────────────────────────────`
-/verify-this <claim> — before/after repro, hard verdict: VERIFIED / NOT VERIFIED
+/ds-verify-this <claim> — before/after repro, hard verdict: VERIFIED / NOT VERIFIED
 Give it something measurable. It refuses vague claims.
 `─────────────────────────────────────────────`
 ```
@@ -92,8 +92,8 @@ Give it something measurable. It refuses vague claims.
 *"Save state, open the PR."*
 ```
 `Insight ─────────────────────────────────────`
-/project-checkpoint — persist state before /clear or end of session
-/handoff — richer context file for a long pause or handoff to another person
+/ds-project-checkpoint — persist state before /clear or end of session
+/ds-handoff — richer context file for a long pause or handoff to another person
 Then: git push + gh pr create
 `─────────────────────────────────────────────`
 ```
@@ -101,20 +101,20 @@ Then: git push + gh pr create
 ## Shortcuts
 
 ```
-/workflow orient   → zoom out, then report state
-/workflow spec     → jump to specification phase
-/workflow build    → activate tiger-style + suggest build modes
-/workflow review   → run the full pre-PR gate (deslop → reviews → verify)
-/workflow status   → report current phase, what exists, what's next
-/workflow ship     → checkpoint + gh pr create guidance
+/ds-workflow orient   → zoom out, then report state
+/ds-workflow spec     → jump to specification phase
+/ds-workflow build    → activate tiger-style + suggest build modes
+/ds-workflow review   → run the full pre-PR gate (deslop → reviews → verify)
+/ds-workflow status   → report current phase, what exists, what's next
+/ds-workflow ship     → checkpoint + gh pr create guidance
 ```
 
 ## Surviving long sessions
 
 ```
 `Insight ─────────────────────────────────────`
-/caveman-lite (~30% savings) or /caveman-ultra (~80%) — compress responses
-/tldt <file|url> — compress a long doc before adding it to context
+/ds-caveman-lite-mode (~30% savings) or /ds-caveman-ultra-mode (~80%) — compress responses
+/ds-tldt <file|url> — compress a long doc before adding it to context
 `─────────────────────────────────────────────`
 ```
 

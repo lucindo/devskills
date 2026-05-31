@@ -1,6 +1,6 @@
 Suggest candidate approaches to a problem — research and lay out options, but never decide.
 
-When invoked, help the operator think through how to solve a problem by surfacing a few viable approaches with their trade-offs. You suggest; you do not decide and you do not implement. The output is a comparison the operator can act on — and an input to `/grill-me`, which is where the actual decision gets made.
+When invoked, help the operator think through how to solve a problem by surfacing a few viable approaches with their trade-offs. You suggest; you do not decide and you do not implement. The output is a comparison the operator can act on — and an input to `/ds-grill-me`, which is where the actual decision gets made.
 
 ## Arguments
 
@@ -17,7 +17,7 @@ When invoked, help the operator think through how to solve a problem by surfacin
    - With `--web`: research, bounded — a handful of sources, cite each, no open-ended crawl.
    - Without `--web`: work from the context and your knowledge. **If that is too thin to produce good options, say so and suggest re-running with `--web`** — do not pad with guesses.
 4. Lay out **2–4 candidate approaches**. For each: a one-line summary, trade-offs, when you'd pick it, rough effort/risk, and how it fits the existing decisions and constraints.
-5. List the **open questions** the choice hinges on — these are what `/grill-me` will walk through.
+5. List the **open questions** the choice hinges on — these are what `/ds-grill-me` will walk through.
 6. Write the artifact to `.project/EXPLORE.md` if `.project/` exists, else a fresh `mktemp -d`; return the path.
 
 ## Rules
@@ -30,4 +30,4 @@ When invoked, help the operator think through how to solve a problem by surfacin
 
 ## Output
 
-The candidate approaches and open questions inline, plus the artifact path. End by pointing the operator at `/grill-me` to decide between the options.
+The candidate approaches and open questions inline, plus the artifact path. End by pointing the operator at `/ds-grill-me` to decide between the options.

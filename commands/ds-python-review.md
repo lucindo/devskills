@@ -9,7 +9,7 @@ Scan the invocation for the `--no-tiger` flag. Treat every other argument as rev
 - `--no-tiger` present → skip the Tiger Style section; run Python Idioms, Typing, Performance, Security, and Testing only.
 - `--no-tiger` absent → run all sections (default).
 
-Example: `/python-review --no-tiger pkg1/ pkg2/` reviews `pkg1/` and `pkg2/` without Tiger Style.
+Example: `/ds-python-review --no-tiger pkg1/ pkg2/` reviews `pkg1/` and `pkg2/` without Tiger Style.
 
 ## Review Checklist
 

@@ -2,7 +2,7 @@ Run a strict review of test quality — whether the code that matters is well te
 
 When invoked, audit the tests in scope against one governing principle: **test what matters, and test it well.** Coverage is not the goal — a percentage says nothing about whether a test would catch a real failure, or whether it pins the code in place. Hunt two failures with equal energy: critical code that is *under-tested* (the bug waiting to ship) and tests that are *bad* (present and green, but worthless or actively harmful — they lock the design and tax every change).
 
-Like `/code-quality-review` and `/doc-quality-review`, this produces a prioritized list. It's the after-the-fact audit; to write tests this way from the start, use `/test` (alongside normal work) or `/tdd` (test-first). **Do not edit any files.**
+Like `/ds-code-quality-review` and `/ds-doc-quality-review`, this produces a prioritized list. It's the after-the-fact audit; to write tests this way from the start, use `/ds-test-mode` (alongside normal work) or `/ds-tdd` (test-first). **Do not edit any files.**
 
 ## Arguments
 

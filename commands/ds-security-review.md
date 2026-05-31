@@ -1,6 +1,6 @@
 Run a strict security review of code changes — find exploitable weaknesses. Language-agnostic. Reports a findings list; changes nothing.
 
-When invoked, audit the code in scope against one question: **how would an attacker abuse this?** Look for the weaknesses that lead to real compromise — injection, broken access control, leaked secrets, untrusted input trusted too far. This is the portable, cross-language pass; for deeper language specifics, `/go-review`, `/ts-review`, and `/rust-review` carry their own Security sections. Every finding names the attack that exploits it. **Do not edit any files.**
+When invoked, audit the code in scope against one question: **how would an attacker abuse this?** Look for the weaknesses that lead to real compromise — injection, broken access control, leaked secrets, untrusted input trusted too far. This is the portable, cross-language pass; for deeper language specifics, `/ds-go-review`, `/ds-ts-review`, and `/ds-rust-review` carry their own Security sections. Every finding names the attack that exploits it. **Do not edit any files.**
 
 ## Arguments
 

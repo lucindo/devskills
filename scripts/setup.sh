@@ -96,4 +96,4 @@ fi
 
 echo ""
 echo "Done. AGENTS.md baseline${LANG_PROFILE:+ + ${LANG_PROFILE} profile} written; CLAUDE.md imports it."
-echo "Activate in Claude Code: /tiger-style"
+echo "Activate in Claude Code: /ds-tiger-style-mode"

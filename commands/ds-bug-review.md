@@ -1,8 +1,8 @@
 Run a strict correctness review of code changes — hunt real bugs, not style or structure. Reports a findings list; changes nothing.
 
-When invoked, audit the code in scope against one question: **will this misbehave at runtime?** Not "is it clean" (that's `/code-quality-review`), not "is it idiomatic" (that's the language reviews) — *is it correct.* Find the defects that would actually fire: wrong logic, mishandled edges, ignored failures, races, leaks. Every finding must name the condition that triggers it; a bug nobody can reach is noise.
+When invoked, audit the code in scope against one question: **will this misbehave at runtime?** Not "is it clean" (that's `/ds-code-quality-review`), not "is it idiomatic" (that's the language reviews) — *is it correct.* Find the defects that would actually fire: wrong logic, mishandled edges, ignored failures, races, leaks. Every finding must name the condition that triggers it; a bug nobody can reach is noise.
 
-Like `/code-quality-review` and `/doc-quality-review`, this produces a prioritized list. **Do not edit any files.** When a finding is confirmed, `/debug` root-causes the fix and `/verify-this` proves it.
+Like `/ds-code-quality-review` and `/ds-doc-quality-review`, this produces a prioritized list. **Do not edit any files.** When a finding is confirmed, `/ds-debug` root-causes the fix and `/ds-verify-this` proves it.
 
 ## Arguments
 

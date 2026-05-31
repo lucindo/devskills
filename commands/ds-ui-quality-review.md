@@ -2,7 +2,7 @@ Run a strict review of UI quality — whether the interface is soundly engineere
 
 When invoked, audit the UI in scope against one governing principle: **a UI is judged on both halves — it works and it's crafted.** Correct rendering is the floor, not the bar. Hunt the failures that ship broken or generic interfaces with equal energy: components that mishandle state and async edges (the bug a user hits), and interfaces that are inaccessible, slow, or generic-by-default (the experience nobody chose). Framework-agnostic — apply it whether the stack is React, Svelte, Vue, Solid, or plain HTML, on any runtime.
 
-Like `/code-quality-review`, `/doc-quality-review`, and `/test-quality-review`, this produces a prioritized list. It's the after-the-fact audit; to build UI to this standard from the start, use `/ui` (mode). **Do not edit any files.**
+Like `/ds-code-quality-review`, `/ds-doc-quality-review`, and `/ds-test-quality-review`, this produces a prioritized list. It's the after-the-fact audit; to build UI to this standard from the start, use `/ds-ui-mode` (mode). **Do not edit any files.**
 
 ## Arguments
 

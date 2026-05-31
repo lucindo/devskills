@@ -11,7 +11,7 @@ Verification is not a recap. It proves or disproves a specific claim with repeat
 
 Do not use this for vague claims like "the code is cleaner". Ask for a measurable claim first.
 
-To *find* the cause of a failure (not just confirm a fix), use `/debug` first — it ends by handing the proven fix to this command.
+To *find* the cause of a failure (not just confirm a fix), use `/ds-debug` first — it ends by handing the proven fix to this command.
 
 ## Workflow
 
