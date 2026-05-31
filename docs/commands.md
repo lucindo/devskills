@@ -124,6 +124,14 @@ Strict test-suite audit governed by one principle — **test what matters, and t
 - **Output:** prioritized findings anchored to `file:line` — untested critical code first, then missing edge cases, design-locking tests, weak tests, bloat-to-cut. Changes nothing.
 - **Reach for it when:** before merging logic-heavy work, or when a suite is green but you don't trust it. The audit counterpart to the `/test` mode and `/tdd`.
 
+### `/ui-quality-review` — action
+
+Strict UI audit governed by one principle — **a UI is judged on both halves: it works and it's crafted.** Framework-agnostic. Hunts engineering correctness (missing/broken async states — especially **empty** — fetch waterfalls, uncancelled stale responses, state that should be derived, index-as-key), accessibility barriers (non-semantic controls, keyboard/focus gaps, contrast, missing labels/live regions), Core Web Vitals (layout shift, INP, oversized critical path), and design craft (generic-AI defaults, flat hierarchy, unsystematized type/spacing).
+
+- **Args:** treated as scope (files, directories, globs); defaults to UI code changed on the current branch.
+- **Output:** prioritized findings anchored to `file:line` — engineering correctness first, then a11y, performance, design craft. Each names the concrete failure, not "improve a11y." Changes nothing.
+- **Reach for it when:** before merging UI work, or auditing an interface you suspect is broken-on-edges, inaccessible, slow, or generic. The audit counterpart to the `/ui` mode.
+
 ### `/deslop` — action
 
 Strip AI-generated slop from the branch and align it with the surrounding code. The test is "code an experienced engineer in this language and codebase wouldn't write" — judged against the language's idioms, not a fixed syntax list. Targets narrating comments, defensive overkill abnormal for a trusted path, type escape hatches used only to dodge the checker, needless nesting, and speculative scaffolding.

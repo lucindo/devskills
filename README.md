@@ -149,6 +149,7 @@ These are scribes, not pilots: they record what you decide, never steer architec
 | Bug Review | `/bug-review` | Language-agnostic correctness audit — hunts real bugs |
 | Security Review | `/security-review` | Language-agnostic security audit — each finding names the attack |
 | UI | `/ui` | UI mode: component/state discipline, design craft, a11y, Core Web Vitals |
+| UI Quality Review | `/ui-quality-review` | Strict UI audit: async-state/fetch correctness, a11y, Core Web Vitals, design craft |
 | Explore | `/explore` | Lay out candidate approaches with trade-offs (`--web` for research) |
 | Grill Me | `/grill-me` | Relentless plan interview (`--record` logs to DECISIONS.md) |
 | Handoff | `/handoff` | Compact the conversation into a handoff doc |
