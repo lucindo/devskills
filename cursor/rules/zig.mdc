@@ -45,4 +45,3 @@ Target: Zig 0.16 (current stable). Systems programming, CLIs, embedded. Pre-1.0,
 
 - Assert preconditions/postconditions/invariants with `std.debug.assert`; assert on both sides of a boundary.
 - Loops over external input have explicit bounds; no unbounded recursion. Named constants for limits/sizes — no magic numbers.
-- Functions under 70 lines.
