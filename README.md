@@ -82,7 +82,7 @@ The intended flow moves from a rough idea to a shipped, reviewed product. Each s
 
 **1. Write a spec**
 
-Use any external AI (ChatGPT, Claude.ai, Gemini) to draft a product description. Bring it into your project directory.
+Draft the WHAT with `/ds-spec` — it produces a structured `SPEC.md` with acceptance criteria. Feed it a rough description (your own, or one drafted with any external AI like ChatGPT/Claude.ai/Gemini), or let it ask three focused questions.
 
 **2. Interrogate the spec**
 
@@ -97,7 +97,6 @@ Use `--record` to log decisions to `DECISIONS.md`. Feed long reference docs thro
 Keep plan and state across sessions in plain markdown under `.project/`, so any session is safe to `/clear` or end:
 
 ```
-/ds-spec                → produce SPEC.md with acceptance criteria (optional)
 /ds-project-map         → scan the repo → .project/PROJECT.md (description + map)
 /ds-project-plan        → ordered tasks → .project/PLAN.md (feed it a goal, SPEC.md, or command output)
    ...you drive the work...
@@ -121,27 +120,34 @@ These are scribes, not pilots: they record what you decide, never steer architec
 
 ## Skills
 
-Every command is namespaced with a `ds-` prefix (short for devskills) so it
-never collides with a Claude Code or OpenCode built-in. **Modes** — which turn
-on persistent session behavior — also carry a `-mode` suffix, so a name tells
-you both its origin and its kind: `/ds-tiger-style-mode` is a mode you toggle,
-`/ds-bug-review` is an action that runs once and finishes.
+Every command is namespaced with a `ds-` prefix (short for devskills) so it never collides with a Claude Code or OpenCode built-in, and its **suffix tells you its kind**: `-mode` (persists for the session), `-review` (a findings-list audit), `-plan` (a graded, costed plan), or no suffix (a one-shot action). The table below is grouped by kind; full taxonomy and per-command detail are in [docs/commands.md](docs/commands.md#kinds-of-command).
+
+### Modes — persistent session behavior (`-mode`)
 
 | Skill | Command | Description |
 |-------|---------|-------------|
 | Tiger Style | `/ds-tiger-style-mode` | TigerBeetle engineering constraints: safety, performance, experience |
+| UI | `/ds-ui-mode` | UI mode: component/state discipline, design craft, a11y, Core Web Vitals |
+| Data | `/ds-data-mode` | Data-engineering discipline as you build pipelines: idempotency, late/out-of-order data, schema drift, replay/backfill safety, data-quality assertions. Tool-agnostic |
+| Git | `/ds-git-mode` | Senior-engineer commit discipline: commit each self-contained working unit, terse Conventional-Commit messages (no LLM bloat), branch-first, never rewrite history |
+| Step | `/ds-step-mode` | User-driven, step-gated execution: smallest step → stop → free-form handback (never a forced picker) → repeat. Drive a plan with `/ds-step-mode current plan` |
+| TDD | `/ds-tdd-mode` | Test-first, one vertical slice at a time |
+| Test | `/ds-test-mode` | Pragmatic testing mode — test by risk, not coverage |
+| Quality Gate | `/ds-quality-gate-mode` | Seven-pass review pipeline, deslop-bookended (deslop → test → security → bug → data → quality → docs → deslop), implement fixes between passes, toggleable mode |
 | Caveman Lite | `/ds-caveman-lite-mode` | Compressed response mode (~25–35% token reduction) |
 | Caveman Ultra | `/ds-caveman-ultra-mode` | Compressed response mode (~75–85% token reduction) |
-| TLDT | `/ds-tldt` | Extractive summary of context or a file — no LLM cost |
-| Workflow | `/ds-workflow` | Standalone phase-map orchestrator — orient, then route each phase to its command (uses `.project/` state when present, never requires it) |
-| Project Map | `/ds-project-map` | Scan the repo into `.project/PROJECT.md` |
-| Project Plan | `/ds-project-plan` | Ordered task roadmap in `.project/PLAN.md` |
-| Project Checkpoint | `/ds-project-checkpoint` | Persist state to `.project/PLAN.md` (`--handoff` for a full handoff) |
-| Project Resume | `/ds-project-resume` | Restore context from `.project/PLAN.md` |
-| Spec | `/ds-spec` | Convert a description into a structured specification |
+
+### Reviews — findings-list audits (`-review`)
+
+| Skill | Command | Description |
+|-------|---------|-------------|
+| Bug Review | `/ds-bug-review` | Language-agnostic correctness audit — hunts real bugs |
+| Security Review | `/ds-security-review` | Language-agnostic security audit — each finding names the attack |
+| Data Review | `/ds-data-review` | Store-agnostic data audit — schema/integrity, query-result correctness, transactions, migration safety. Each finding names the path to wrong/lost data (`--pipelines` also audits ETL/pipeline code) |
 | Code Quality Review | `/ds-code-quality-review` | Strict maintainability audit: abstraction, sprawl, spaghetti |
 | Doc Quality Review | `/ds-doc-quality-review` | Strict docs audit: accuracy, dead links, bloat (`--comments` audits code comments) |
-| Deslop | `/ds-deslop` | Strip AI-generated slop from the branch diff |
+| Test Quality Review | `/ds-test-quality-review` | Strict test audit: is critical code well tested? |
+| UI Quality Review | `/ds-ui-quality-review` | Strict UI audit: async-state/fetch correctness, a11y, Core Web Vitals, design craft |
 | Comment Review | `/ds-comment-review` | Bring comments to discipline — WHY-not-WHAT, one-liner default, strip restate/obvious/cruft, keep the rare important long one. Reports by default, `--fix` to apply |
 | Go Review | `/ds-go-review` | Go: idiomatic + security + Tiger Style (`--no-tiger` to skip style) |
 | TS Review | `/ds-ts-review` | TypeScript/Workers: strict mode, React, Cloudflare (`--no-tiger` to skip style) |
@@ -149,30 +155,36 @@ you both its origin and its kind: `/ds-tiger-style-mode` is a mode you toggle,
 | Python Review | `/ds-python-review` | Python: idioms, typing, security, Tiger Style (`--no-tiger` to skip style) |
 | Java Review | `/ds-java-review` | Java: idioms, records/sealed types, security, Tiger Style (`--no-tiger` to skip style) |
 | Zig Review | `/ds-zig-review` | Zig: explicit allocators, errors-as-values, safety, Tiger Style (`--no-tiger` to skip style) |
-| Bug Review | `/ds-bug-review` | Language-agnostic correctness audit — hunts real bugs |
-| Security Review | `/ds-security-review` | Language-agnostic security audit — each finding names the attack |
-| Data Review | `/ds-data-review` | Store-agnostic data audit — schema/integrity, query-result correctness, transactions, migration safety. Each finding names the path to wrong/lost data (`--pipelines` also audits ETL/pipeline code) |
+
+Every `-review` reports by default and changes nothing; pass `--fix` to apply the **mechanical, unambiguous** findings in place (correctness and security fixes, and anything resting on judgment, stay reported either way).
+
+### Plans — graded, sequenced moves (`-plan`)
+
+| Skill | Command | Description |
+|-------|---------|-------------|
 | Perf Plan | `/ds-perf-plan` | Language-agnostic optimization plan — moves tagged by architectural cost (L1/L2/L3), each with a cost model (`--max-level` to clamp, `--no-tiger` to skip style) |
 | Architecture Plan | `/ds-architecture-plan` | Module/dependency/boundary analysis of an existing codebase → sequenced refactoring plan. Levels L1/L2/L3, `--max-level` to clamp |
-| UI | `/ds-ui-mode` | UI mode: component/state discipline, design craft, a11y, Core Web Vitals |
-| Data | `/ds-data-mode` | Data-engineering discipline as you build pipelines: idempotency, late/out-of-order data, schema drift, replay/backfill safety, data-quality assertions. Tool-agnostic |
-| Git | `/ds-git-mode` | Senior-engineer commit discipline: commit each self-contained working unit, terse Conventional-Commit messages (no LLM bloat), branch-first, never rewrite history |
-| Step | `/ds-step-mode` | User-driven, step-gated execution: smallest step → stop → free-form handback (never a forced picker) → repeat. Drive a plan with `/ds-step-mode current plan` |
-| UI Quality Review | `/ds-ui-quality-review` | Strict UI audit: async-state/fetch correctness, a11y, Core Web Vitals, design craft |
+
+### Actions — one-shot, produce a result and return
+
+| Skill | Command | Description |
+|-------|---------|-------------|
+| Spec | `/ds-spec` | Convert a description into a structured specification |
 | Explore | `/ds-explore` | Lay out candidate approaches with trade-offs (`--web` for research) |
 | Blueprint | `/ds-blueprint` | Design a target architecture for a new system — modules, dependency rules, seams, build order. Decisive counterpart to `ds-explore` |
 | Grill Me | `/ds-grill-me` | Relentless plan interview (`--record` logs to DECISIONS.md) |
-| Handoff | `/ds-handoff` | Compact the conversation into a handoff doc |
-| Zoom Out | `/ds-zoom-out` | Step up a layer — map modules, callers, boundaries |
-| TDD | `/ds-tdd-mode` | Test-first, one vertical slice at a time |
-| Test | `/ds-test-mode` | Pragmatic testing mode — test by risk, not coverage |
-| Test Quality Review | `/ds-test-quality-review` | Strict test audit: is critical code well tested? |
+| Workflow | `/ds-workflow` | Standalone phase-map orchestrator — orient, then route each phase to its command (uses `.project/` state when present, never requires it) |
+| Project Map | `/ds-project-map` | Scan the repo into `.project/PROJECT.md` |
+| Project Plan | `/ds-project-plan` | Ordered task roadmap in `.project/PLAN.md` |
+| Project Checkpoint | `/ds-project-checkpoint` | Persist state to `.project/PLAN.md` (`--handoff` for a full handoff) |
+| Project Resume | `/ds-project-resume` | Restore context from `.project/PLAN.md` |
+| Deslop | `/ds-deslop` | Strip AI-generated slop from the branch diff |
 | Debug | `/ds-debug` | Root-cause a failure with the scientific method |
 | Verify This | `/ds-verify-this` | Prove a falsifiable claim with local before/after evidence |
-| Quality Gate | `/ds-quality-gate-mode` | Seven-pass review pipeline, deslop-bookended (deslop → test → security → bug → data → quality → docs → deslop), implement fixes between passes, toggleable mode |
+| Zoom Out | `/ds-zoom-out` | Step up a layer — map modules, callers, boundaries |
+| Handoff | `/ds-handoff` | Compact the conversation into a handoff doc |
+| TLDT | `/ds-tldt` | Extractive summary of context or a file — no LLM cost |
 | Write a Command | `/ds-write-a-command` | Author a new devskills command in repo conventions |
-
-Every `*-review` reports by default and changes nothing; pass `--fix` to apply the **mechanical, unambiguous** findings in place (correctness and security fixes, and anything resting on judgment, stay reported either way).
 
 Full per-command reference: [docs/commands.md](docs/commands.md). Worked workflows and examples: [docs/recipes.md](docs/recipes.md). Extended `/ds-grill-me` playbook: [docs/grill-me.md](docs/grill-me.md). Tiger Style principles: [docs/tiger-style.md](docs/tiger-style.md).
 
