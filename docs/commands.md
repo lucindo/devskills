@@ -176,9 +176,9 @@ Language-agnostic **security** audit — the portable counterpart to the per-lan
 
 - **Args:** treated as scope (files, directories, globs); defaults to code changed on the current branch.
 - **Output:** prioritized findings anchored to `file:line` — critical (code exec / breach / auth bypass) → high → hardening. Each **describes the attack** (input → sink) and the fix. Exploitable over theoretical. Changes nothing.
-- **Reach for it when:** any change that touches input handling, auth, secrets, or external I/O — and as a pre-PR gate. The deeper language-specific checks live in `/go·ts·rust·python-review`.
+- **Reach for it when:** any change that touches input handling, auth, secrets, or external I/O — and as a pre-PR gate. The deeper language-specific checks live in `/go·ts·rust·python·java-review`.
 
-### `/ds-go-review` · `/ds-ts-review` · `/ds-rust-review` · `/ds-python-review` — action
+### `/ds-go-review` · `/ds-ts-review` · `/ds-rust-review` · `/ds-python-review` · `/ds-java-review` — action
 
 Language-specific review passes.
 
@@ -186,6 +186,7 @@ Language-specific review passes.
 - **`/ds-ts-review`** — TypeScript/Workers: strict mode, React, Cloudflare.
 - **`/ds-rust-review`** — cargo geiger, `unsafe`/panic counts, clippy, audit, Tiger Style + security.
 - **`/ds-python-review`** — Python idioms, `mypy --strict` typing, security, Tiger Style.
+- **`/ds-java-review`** — Java idioms (records, sealed types, pattern matching), security, Tiger Style.
 - **Args:** `--no-tiger` skips the Tiger Style section (all of them).
 - **Reach for it when:** reviewing code in that language, or as a pre-PR gate.
 
