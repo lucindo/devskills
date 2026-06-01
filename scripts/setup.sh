@@ -16,7 +16,7 @@ Profiles (optional):
   typescript        TypeScript 5+ (Workers, Next.js, React)
   javascript        ES2022+ (Workers, vanilla frontend)
   rust              Rust stable (systems programming, large projects)
-  python            Python 3.11+ (backend, APIs, CLIs, data)
+  python            Python 3.13+ (backend, APIs, CLIs, data)
   java              Java 25+ LTS (backend services, APIs, CLIs)
   zig               Zig 0.16 (systems, CLIs, embedded; Tiger Style native)
 

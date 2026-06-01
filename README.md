@@ -212,7 +212,7 @@ Each profile encodes idioms, toolchain defaults, and review constraints for its 
 | `typescript` | TypeScript 5+, Wrangler | Cloudflare Workers, Next.js, React |
 | `javascript` | ES2022+, Wrangler | Cloudflare Workers, vanilla frontend |
 | `rust` | Rust stable | Systems programming, large projects |
-| `python` | Python 3.11+ | Backend services, APIs, CLIs, data pipelines |
+| `python` | Python 3.13+ | Backend services, APIs, CLIs, data pipelines |
 | `java` | Java 25+ (LTS) | Backend services, APIs, CLIs, systems tooling |
 | `zig` | Zig 0.16 | Systems programming, CLIs, embedded (Tiger Style native) |
 

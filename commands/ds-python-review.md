@@ -1,6 +1,6 @@
 Review Python code with Tiger Style constraints and Python idioms.
 
-Applies to: Python 3.11+. Backend services, APIs, CLIs, data pipelines.
+Applies to: Python 3.13+. Backend services, APIs, CLIs, data pipelines.
 
 ## Arguments
 
@@ -34,23 +34,31 @@ Skip this section entirely if `--no-tiger` was passed. Otherwise it is mandatory
 - [ ] Iterate with comprehensions / generators over manual index loops; lazy generators for large streams
 - [ ] No `from module import *`; no logic in `__init__.py`; entrypoints guarded by `if __name__ == "__main__"`
 - [ ] `pathlib` over `os.path`; f-strings over `%`/`.format()`
+- [ ] No `return`/`break`/`continue` inside a `finally` block — it silently swallows exceptions (SyntaxWarning on 3.14+, PEP 765)
+- [ ] Timezone-aware `datetime.now(UTC)` over the deprecated naive `datetime.utcnow()` / `utcfromtimestamp()`
+- [ ] No imports of stdlib modules removed in 3.13 (PEP 594) — `crypt`→`bcrypt`/`argon2-cffi`, `pipes`→`subprocess`+`shlex.quote`, `cgi`/`cgitb`→`urllib.parse`/`email`; also `telnetlib`/`nntplib`/`imghdr`/`uu`/`lib2to3`
 
 ### Typing
 - [ ] Every public signature annotated; passes `mypy --strict` (no implicit `Any`)
 - [ ] Modern syntax: `list[str]`, `X | None` over `Optional[X]`
+- [ ] PEP 695 type parameters (`class C[T]`, `def f[T]`, `type` alias statement) over explicit `TypeVar`/`TypeAlias` on new generic code
+- [ ] `@override` on methods overriding a base; `typing.TypeIs` over `TypeGuard`; `ReadOnly` for immutable `TypedDict` items (3.13+)
+- [ ] Forward refs unquoted and `from __future__ import annotations` dropped where 3.14 deferred evaluation makes them redundant — flag only on 3.14+, keep on 3.13
 - [ ] `@dataclass`/`Protocol`/`Enum` used instead of loose dicts and magic strings where they fit
 - [ ] No `# type: ignore` without a trailing reason comment
 
 ### Performance
 - [ ] No blocking calls (`time.sleep`, `requests`, sync DB drivers) inside `async def` — use async clients or `asyncio.to_thread`
 - [ ] Every external `await` / network / DB call has a timeout
-- [ ] CPU-bound work uses `ProcessPoolExecutor`, not threads (the GIL serializes threads)
+- [ ] Concurrent tasks managed with `asyncio.TaskGroup` (scoped lifetime, sibling cancellation, `ExceptionGroup`) over bare `asyncio.gather`
+- [ ] CPU-bound work uses `ProcessPoolExecutor` (or `InterpreterPoolExecutor`, 3.14+) — threads only parallelize CPU on the separate free-threaded build (`python3.14t`); the stock interpreter's GIL serializes them
 - [ ] Database queries not issued inside loops; N+1 patterns absent
 - [ ] Generators/streaming for large data instead of building full lists in memory
 
 ### Security
-- [ ] No string-built SQL (f-string/`%`/`+`) — use parameterized queries / the ORM
+- [ ] No string-built SQL (f-string/`%`/`+`) — use parameterized queries / the ORM. (Emerging: a `Template`-aware library can use t-strings, PEP 750, 3.14+, to offer a safe-interpolation API — but a `t'...'` literal sanitizes nothing on its own)
 - [ ] No `subprocess` with `shell=True` on user input; no `eval`/`exec`/`pickle` on untrusted data
+- [ ] `tarfile` extraction passes `filter='data'` (or stricter) — bare `extractall` is a path-traversal/overwrite hazard and errors by default on 3.14+
 - [ ] `yaml.safe_load`, not `yaml.load`; no untrusted deserialization
 - [ ] No hardcoded credentials or secrets; read from env/secret store
 - [ ] All external input validated and bounded at the boundary (e.g. `pydantic`); requests set timeouts
