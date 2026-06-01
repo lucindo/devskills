@@ -180,11 +180,11 @@ Strict review of code comments under one lens — **does each comment earn its p
 
 ### `/ds-quality-gate-mode` — mode
 
-Seven-pass review pipeline for a feature branch or scoped path. Run in order; implement accepted findings between passes before proceeding.
+Seven-pass review pipeline for a feature branch or scoped path, **bookended by `/ds-deslop`**. Run in order; implement accepted findings between passes before proceeding.
 
-Pipeline: `/ds-deslop` → `/ds-test-quality-review` → `/ds-security-review` → `/ds-bug-review` → `/ds-data-review` → `/ds-code-quality-review` → `/ds-doc-quality-review`
+Pipeline: `/ds-deslop` → `/ds-test-quality-review` → `/ds-security-review` → `/ds-bug-review` → `/ds-data-review` → `/ds-code-quality-review` → `/ds-doc-quality-review` → `/ds-deslop`
 
-`/ds-data-review` runs only when the change touches schema, queries, transactions, or migrations; otherwise it's skipped with a note.
+Deslop runs first to clean the incoming diff, then again last because the gate implements fixes between passes — that freshly-generated fix code can carry its own slop. `/ds-data-review` runs only when the change touches schema, queries, transactions, or migrations; otherwise it's skipped with a note.
 
 After each pass: shows findings for that pass, asks "accept all / reject all / skip N", implements accepted ones, then moves to the next pass. Reports a one-paragraph summary at the end.
 

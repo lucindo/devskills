@@ -186,7 +186,7 @@ you both its origin and its kind: `/ds-tiger-style-mode` is a mode you toggle,
 | Test Quality Review | `/ds-test-quality-review` | Strict test audit: is critical code well tested? |
 | Debug | `/ds-debug` | Root-cause a failure with the scientific method |
 | Verify This | `/ds-verify-this` | Prove a falsifiable claim with local before/after evidence |
-| Quality Gate | `/ds-quality-gate-mode` | Seven-pass review pipeline (deslop → test → security → bug → data → quality → docs), implement fixes between passes, toggleable mode |
+| Quality Gate | `/ds-quality-gate-mode` | Seven-pass review pipeline, deslop-bookended (deslop → test → security → bug → data → quality → docs → deslop), implement fixes between passes, toggleable mode |
 | Write a Command | `/ds-write-a-command` | Author a new devskills command in repo conventions |
 
 Full per-command reference: [docs/commands.md](docs/commands.md). Worked, GSD-free workflows and examples: [docs/recipes.md](docs/recipes.md). Extended `/ds-grill-me` playbook: [docs/grill-me.md](docs/grill-me.md). Tiger Style principles: [docs/tiger-style.md](docs/tiger-style.md).
