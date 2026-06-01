@@ -51,4 +51,3 @@ Suggest: `/ds-project-resume` to read the plan and pick up where it left off.
 - One Insight block per phase transition — don't repeat suggestions already made this session.
 - Skip the block if the user already knows what to do (they just ran the command, or they explicitly said so).
 - Keep suggestions concrete: name the exact command and what it gives the user, in one line each.
-- Never suggest GSD commands unless `.planning/` exists in the project.
