@@ -272,6 +272,7 @@ fi
 
 if [ "$SKIP_EXTERNAL" -eq 0 ]; then
   log "Installing external tools..."
+  devskills_osv install
   devskills_tldt install
 else
   log "Skipping external tools (--skip-external)"
@@ -286,6 +287,7 @@ log "Done. Verify with:"
 log "  claude /ds-tiger-style-mode   — in Claude Code"
 log "  /ds-tiger-style-mode          — in Cursor or OpenCode"
 log "  /prompts:ds-tiger-style-mode  — in Codex"
+log "  osv-scanner --version         — supply-chain vulnerability scanner"
 log "  tldt --version                — text summarizer"
 log ""
 log "Set language profile in any project:"

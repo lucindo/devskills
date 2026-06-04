@@ -28,6 +28,7 @@ done
 source "${SCRIPT_DIR}/lib/external-tools.sh"
 
 log "Force-upgrading all external tools..."
+devskills_osv upgrade
 devskills_tldt upgrade
 log "Caveman: bundled in devskills prompt files. Run scripts/update.sh to update."
 log "Done."

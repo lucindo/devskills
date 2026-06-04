@@ -101,6 +101,7 @@ Every command is namespaced with a `ds-` prefix (short for devskills) so it neve
 |---------|-------------|
 | `/ds-bug-review` | Language-agnostic correctness audit — hunts real bugs |
 | `/ds-security-review` | Language-agnostic security audit — each finding names the attack |
+| `/ds-osv` | Scan dependency manifests for known CVEs via OSV Scanner; `--fix` bumps direct deps |
 | `/ds-data-review` | Store-agnostic data audit — schema/integrity, query-result correctness, transactions, migration safety. Each finding names the path to wrong/lost data (`--pipelines` also audits ETL/pipeline code) |
 | `/ds-code-quality-review` | Strict maintainability audit: abstraction, sprawl, spaghetti |
 | `/ds-doc-quality-review` | Strict docs audit: accuracy, dead links, bloat (`--comments` audits code comments) |
@@ -202,6 +203,7 @@ Installed by `install.sh`. Managed by `upgrade-deps.sh`.
 
 | Tool | Purpose |
 |------|---------|
+| [osv-scanner](https://github.com/google/osv-scanner) | Supply-chain vulnerability scan against the OSV/CVE database |
 | [tldt](https://github.com/gleicon/tldt) | Extractive text summarization; no LLM, no cost |
 
 ## References
