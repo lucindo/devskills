@@ -364,7 +364,7 @@ Inject context from recall into the current session.
 
 Store this session's outcome into recall's knowledge base.
 
-- **Process:** extracts signal with `/ds-tldt` (goal + result + insight — no reasoning chain, no failed attempts), then calls `recall run record` and `recall learn`. Asks opt-in once on first use; stores the preference in `.recall/.devskills-capture`.
+- **Process:** extracts signal with `/ds-tldt` (goal + result + insight — no reasoning chain, no failed attempts), then calls `recall run record` and `recall learn`. No opt-in gate — running the command is consent.
 - **Rules:** skips capture if the session is still in progress or inconclusive. Run before `/clear` — the context is gone after.
 - **Reach for it when:** you just resolved something worth keeping — a bug class, a design decision, a framework pattern — and want it available in future sessions across all your projects.
 
