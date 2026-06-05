@@ -178,7 +178,7 @@ Local-first context engine: indexes your project, accumulates cross-project reci
 |---------|-------------|
 | `/ds-recall` | Index project + inject a context-rich brief into the session; `query "<q>"` routes locally; `brain` pulls cross-project patterns |
 | `/ds-recall-capture` | Compact this session's outcome (goal + result + insight) and store it in recall's knowledge base |
-| `/ds-recall-setup` | Install recall, seed default recipes, wire Stop/`session.idle` reminder hooks for Claude Code and OpenCode |
+| `/ds-recall-setup` | Index project, seed recipes, and install recall's session integration via `recall install-skill` (claude; opencode/cursor/codex when present) |
 
 ## Build your own workflow
 
