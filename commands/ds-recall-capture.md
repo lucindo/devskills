@@ -15,21 +15,20 @@ If missing, print install instructions (see `/ds-recall`) and stop.
 ## Process
 
 1. Check binary.
-2. Check or set opt-in preference (see above).
-3. Use `/ds-tldt` to compress the session into a compact summary — three fields only:
+2. Use `/ds-tldt` to compress the session into a compact summary — three fields only:
    - **Task** — what was being implemented or resolved (one line)
    - **Result** — what was produced or fixed (one line)
    - **Insight** — the non-obvious takeaway, constraint, or pattern (one to three lines)
 
    Exclude: intermediate reasoning, failed approaches, scaffolding discussion.
 
-4. Call recall:
+3. Call recall:
    ```bash
    recall run record --task "<task>: <result>"
    recall learn "<insight>"
    ```
 
-5. Report what was stored.
+4. Report what was stored.
 
 ## Rules
 
