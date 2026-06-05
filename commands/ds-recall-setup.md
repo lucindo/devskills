@@ -1,6 +1,6 @@
 Initialize recall and install its session integration into your AI assistant.
 
-Sets up [recall](https://github.com/gleicon/recall) for the current project and configures the host AI tool to remind you to run `/ds-recall-capture` at session end. Writes config automatically — no manual file editing required.
+Sets up [recall](https://github.com/gleicon/recall) for the current project and installs its session integration by delegating to recall's own `install-skill` — no hand-written host config.
 
 ## Check
 
