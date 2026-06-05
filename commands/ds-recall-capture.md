@@ -7,7 +7,7 @@ Extracts the signal from the session — goal, result, key insight — and feeds
 Verify `recall` is on PATH:
 
 ```bash
-recall --version
+command -v recall
 ```
 
 If missing, print install instructions (see `/ds-recall`) and stop.
