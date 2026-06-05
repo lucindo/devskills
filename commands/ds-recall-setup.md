@@ -49,11 +49,9 @@ Stop. Do not proceed.
 ```
 recall setup complete
 
-  project indexed:   recall map ✓
-  recipes seeded:    recall recipes seed ✓
-  Claude Code hook:  ~/.claude/settings.json (Stop reminder added)
-  OpenCode plugin:   ~/.config/opencode/plugins/recall-reminder.js
-  capture opt-in:    <enabled|disabled>
+  project indexed:    recall map ✓
+  recipes seeded:     recall recipes seed ✓
+  recall integration: install-skill ✓ (claude; opencode/cursor/codex when present)
 
 Run /ds-recall to inject context into any session.
 Run /ds-recall-capture before /clear to store what you built.
