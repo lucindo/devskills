@@ -7,7 +7,7 @@ Requires [recall](https://github.com/gleicon/recall) — a local-first context e
 Before anything else, verify `recall` is on PATH:
 
 ```bash
-recall --version
+command -v recall
 ```
 
 If the binary is missing:
